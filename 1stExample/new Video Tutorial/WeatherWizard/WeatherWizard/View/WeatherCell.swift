@@ -12,13 +12,12 @@ class WeatherCell: UITableViewCell {
 
     @IBOutlet weak var imgWeatherMini: UIImageView!
     @IBOutlet weak var lblDay: UILabel!
-    @IBOutlet weak var lblStatus: UILabel!
-    
+    @IBOutlet weak var lblStatus: UILabel!    
     @IBOutlet weak var lblMinTemperature: UILabel!
     @IBOutlet weak var lblMaxTemperature: UILabel!
+
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {

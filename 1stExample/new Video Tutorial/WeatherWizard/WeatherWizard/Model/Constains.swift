@@ -16,10 +16,6 @@ let API_ID = "&appid="
 let API_KEY = "b6907d289e10d714a6e88b30761fae22"
 
 let NUM_OF_DAY = "&cnt=10"
-
-typealias DownloadComplete = () -> ()
-//() -> () just means Void -> Void - a closure that accepts no parameters and has no return value.
     
 let CURRENT_WEATHER_URL = "\(BASE_URL_CURRENT_WEATHER)\(LATTITUDE)\(LONGTITUDE)\(API_ID)\(API_KEY)"
-
 let FORECAST_URL = "\(BASE_URL_BROADCAST)\(LATTITUDE)\(LONGTITUDE)\(NUM_OF_DAY)\(API_ID)\(API_KEY)"

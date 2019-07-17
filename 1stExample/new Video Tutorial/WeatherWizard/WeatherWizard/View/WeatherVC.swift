@@ -19,7 +19,7 @@ class WeatherVC: UIViewController {
 
     let weather = CurrentWeather()
     let forecast = ForecastData()
-    //var itemCount = 0
+
     //1 time job
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -49,11 +49,9 @@ extension WeatherVC: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: "Cell") as? WeatherCell else
-        {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "Cell") as? WeatherCell else {
             fatalError()
         }
-        
         cell.updateCellUI(broadcastData: forecast.listOfForecastData[indexPath.row])
         return cell
     }

@@ -10,32 +10,29 @@ import Foundation
 import Alamofire
 
 class Forecast {
-    private var _date: String!
-    private var _status: String!
-    private var _maxTemp: String!
-    private var _minTemp: String!
+    private var _dayOfWeek: String!, _weatherStatus: String!, _maxTemp: String!, _minTemp: String!
     
     var date: String {
         get {
-            if _date == nil {
-                _date = ""
+            if _dayOfWeek == nil {
+                _dayOfWeek = ""
             }
-            return _date
+            return _dayOfWeek
         }
         set {
-            _date = newValue
+            _dayOfWeek = newValue
         }
     }
     
     var status: String {
         get {
-            if _status == nil {
-                _status = ""
+            if _weatherStatus == nil {
+                _weatherStatus = ""
             }
-            return _status
+            return _weatherStatus
         }
         set {
-            _status = newValue
+            _weatherStatus = newValue
         }
     }
     
@@ -64,7 +61,7 @@ class Forecast {
     }
     
     init(forecast: Dictionary<String, AnyObject>) {
-        if let temp = forecast["temp"] as? Dictionary <String, AnyObject> {
+        if let temp = forecast["temp"] as? [String: AnyObject] {
             if let max = temp["max"] as? Double {
                 self.maxTemp = "\(round(max - 275.15))"
             }
@@ -72,7 +69,7 @@ class Forecast {
                 self.minTemp = "\(round(min - 275.15))"
             }
         }
-        if let weather = forecast["weather"] as? [Dictionary <String, AnyObject>] {
+        if let weather = forecast["weather"] as? [[String: AnyObject]] {
             if let main = weather[0]["main"] as? String {
                 self.status = main.capitalized
             }
@@ -80,8 +77,7 @@ class Forecast {
         if let dt = forecast["dt"] as? Double {
             let unixDate = Date(timeIntervalSince1970: dt)
             let dateFormatter = DateFormatter()
-            dateFormatter.timeZone = TimeZone(abbreviation: "GMT")
-            dateFormatter.locale = NSLocale.current
+            //date format for day of week
             dateFormatter.dateFormat = "EEEE"
             self.date = dateFormatter.string(from: unixDate)
         }
