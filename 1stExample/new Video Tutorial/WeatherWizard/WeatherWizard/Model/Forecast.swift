@@ -9,7 +9,7 @@
 import Foundation
 import Alamofire
 
-class Broadcast {
+class Forecast {
     private var _date: String!
     private var _status: String!
     private var _maxTemp: String!
@@ -63,8 +63,8 @@ class Broadcast {
         }
     }
     
-    init(broadcast: Dictionary<String, AnyObject>) {
-        if let temp = broadcast["temp"] as? Dictionary <String, AnyObject> {
+    init(forecast: Dictionary<String, AnyObject>) {
+        if let temp = forecast["temp"] as? Dictionary <String, AnyObject> {
             if let max = temp["max"] as? Double {
                 self.maxTemp = "\(round(max - 275.15))"
             }
@@ -72,17 +72,17 @@ class Broadcast {
                 self.minTemp = "\(round(min - 275.15))"
             }
         }
-        if let weather = broadcast["weather"] as? [Dictionary <String, AnyObject>] {
+        if let weather = forecast["weather"] as? [Dictionary <String, AnyObject>] {
             if let main = weather[0]["main"] as? String {
                 self.status = main.capitalized
             }
         }
-        if let dt = broadcast["dt"] as? Double {
+        if let dt = forecast["dt"] as? Double {
             let unixDate = Date(timeIntervalSince1970: dt)
             let dateFormatter = DateFormatter()
-            dateFormatter.timeZone = TimeZone(abbreviation: "GMT") //Set timezone that you want
+            dateFormatter.timeZone = TimeZone(abbreviation: "GMT")
             dateFormatter.locale = NSLocale.current
-            dateFormatter.dateFormat = "EEEE" //Specify your format that you want
+            dateFormatter.dateFormat = "EEEE"
             self.date = dateFormatter.string(from: unixDate)
         }
     }

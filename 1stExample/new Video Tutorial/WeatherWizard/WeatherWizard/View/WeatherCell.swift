@@ -25,7 +25,7 @@ class WeatherCell: UITableViewCell {
         super.setSelected(selected, animated: animated)
     }
     
-    func updateCellUI(broadcastData: Broadcast) {
+    func updateCellUI(broadcastData: Forecast) {
         lblDay.text = broadcastData.date
         lblStatus.text = broadcastData.status
         lblMaxTemperature.text = broadcastData.maxTemp

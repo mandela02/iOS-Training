@@ -11,6 +11,8 @@ import UIKit
 import Alamofire
 
 class CurrentWeather {
+    //wrong
+    
     private var _temperature: String!
     private var _location: String!
     private var _currentDate: String!
@@ -24,7 +26,7 @@ class CurrentWeather {
             return _temperature
         }
         set {
-                _temperature = newValue
+            _temperature = newValue
         }
     }
     

@@ -18,16 +18,18 @@ class WeatherVC: UIViewController {
     @IBOutlet weak var tblBroadcast: UITableView!
 
     let weather = CurrentWeather()
-    let broadcast = BroadcastData()
-    var itemCount = 0
-    
+    let forecast = ForecastData()
+    //var itemCount = 0
+    //1 time job
     override func viewDidLoad() {
         super.viewDidLoad()
         weather.downloadWeatherData {
-            self.updateUI()
+            self.forecast.downloadBroadcastData {
+                self.updateUI()
+                self.tblBroadcast.dataSource = self
+                self.tblBroadcast.delegate = self
+            }
         }
-        tblBroadcast.delegate = self
-        tblBroadcast.dataSource = self
     }
     
     func updateUI() {
@@ -43,7 +45,7 @@ extension WeatherVC: UITableViewDelegate {}
 
 extension WeatherVC: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1
+        return forecast.listOfForecastData.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -51,17 +53,9 @@ extension WeatherVC: UITableViewDataSource {
         {
             fatalError()
         }
-        broadcast.downloadBroadcastData {
-            self.updateCell(cell: cell, cellForRowAt: indexPath)
-        }
+        
+        cell.updateCellUI(broadcastData: forecast.listOfForecastData[indexPath.row])
         return cell
-    }
-    func updateCell(cell: WeatherCell, cellForRowAt indexPath: IndexPath) {
-        cell.updateCellUI(broadcastData: broadcast.listOfBroadcast[indexPath.row])
-    }
-    
-    func getItemCount() -> Int {
-        return broadcast.listOfBroadcast.count
     }
 }
 

@@ -8,17 +8,17 @@
 import Foundation
 import Alamofire
 
-class BroadcastData {
-    var listOfBroadcast =  [Broadcast]()
+class ForecastData {
+    var listOfForecastData =  [Forecast]()
     
     func downloadBroadcastData(completed: @escaping () -> ()) {
-        let broadcastUrl = URL(string: BROADCAST_URL)
+        let broadcastUrl = URL(string: FORECAST_URL)
         Alamofire.request(broadcastUrl!).responseJSON { (response) in
             if let dict = response.value as? Dictionary<String, AnyObject> {
                 if let list = dict["list"] as? [Dictionary<String, AnyObject>] {
                     for obj in list {
-                        let broadcast = Broadcast(broadcast: obj)
-                        self.listOfBroadcast.append(broadcast)
+                        let forecast = Forecast(forecast: obj)
+                        self.listOfForecastData.append(forecast)
                         print(obj)
                     }
                 }
