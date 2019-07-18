@@ -8,14 +8,29 @@
 
 import Foundation
 
-let BASE_URL_CURRENT_WEATHER = "https://samples.openweathermap.org/data/2.5/weather?"
-let BASE_URL_BROADCAST = "https://samples.openweathermap.org/data/2.5/forecast/daily?"
-let LATTITUDE = "lat=12"
-let LONGTITUDE = "&lon=21"
-let API_ID = "&appid="
-let API_KEY = "b6907d289e10d714a6e88b30761fae22"
-
-let NUM_OF_DAY = "&cnt=10"
-    
-let CURRENT_WEATHER_URL = "\(BASE_URL_CURRENT_WEATHER)\(LATTITUDE)\(LONGTITUDE)\(API_ID)\(API_KEY)"
-let FORECAST_URL = "\(BASE_URL_BROADCAST)\(LATTITUDE)\(LONGTITUDE)\(NUM_OF_DAY)\(API_ID)\(API_KEY)"
+enum UrlElement {
+    static let baseUrlCurrentWeather = "https://samples.openweathermap.org/data/2.5/weather?"
+    static let baseUrlForecast = "https://samples.openweathermap.org/data/2.5/forecast/daily?"
+    static let lat = "lat=12"
+    static let lon = "&lon=21"
+    static let apiId = "&appid="
+    static let apiKey = "b6907d289e10d714a6e88b30761fae22"
+    static let numberOfDay = "&cnt=10"
+}
+enum Url {
+    static let currentWeatherUrl = """
+    \(UrlElement.baseUrlCurrentWeather)\
+    \(UrlElement.lat)\
+    \(UrlElement.lon)\
+    \(UrlElement.apiId)\
+    \(UrlElement.apiKey)
+    """
+    static let forecastUrl = """
+    \(UrlElement.baseUrlForecast)\
+    \(UrlElement.lat)\
+    \(UrlElement.lon)\
+    \(UrlElement.numberOfDay)\
+    \(UrlElement.apiId)\
+    \(UrlElement.apiKey)
+    """
+}

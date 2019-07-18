@@ -11,7 +11,7 @@ import Alamofire
 
 class Forecast {
     private var _dayOfWeek: String!, _weatherStatus: String!, _maxTemp: String!, _minTemp: String!
-    
+
     var date: String {
         get {
             if _dayOfWeek == nil {
@@ -23,7 +23,7 @@ class Forecast {
             _dayOfWeek = newValue
         }
     }
-    
+
     var status: String {
         get {
             if _weatherStatus == nil {
@@ -35,7 +35,7 @@ class Forecast {
             _weatherStatus = newValue
         }
     }
-    
+
     var maxTemp: String {
         get {
             if _maxTemp == nil {
@@ -47,7 +47,7 @@ class Forecast {
             _maxTemp = newValue
         }
     }
-    
+
     var minTemp: String {
         get {
             if _minTemp == nil {
@@ -59,8 +59,8 @@ class Forecast {
             _minTemp = newValue
         }
     }
-    
-    init(forecast: Dictionary<String, AnyObject>) {
+
+    init(forecast: [String: AnyObject]) {
         if let temp = forecast["temp"] as? [String: AnyObject] {
             if let max = temp["max"] as? Double {
                 self.maxTemp = "\(round(max - 275.15))"
@@ -74,10 +74,10 @@ class Forecast {
                 self.status = main.capitalized
             }
         }
-        if let dt = forecast["dt"] as? Double {
-            let unixDate = Date(timeIntervalSince1970: dt)
+        if let date = forecast["dt"] as? Double {
+            let unixDate = Date(timeIntervalSince1970: date)
             let dateFormatter = DateFormatter()
-            //date format for day of week
+            //date format for day of week "EEEE"
             dateFormatter.dateStyle = .full
             dateFormatter.timeStyle = .none
             self.date = dateFormatter.string(from: unixDate)

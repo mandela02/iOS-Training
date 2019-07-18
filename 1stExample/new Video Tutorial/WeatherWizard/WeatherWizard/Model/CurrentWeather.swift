@@ -11,10 +11,8 @@ import UIKit
 import Alamofire
 
 class CurrentWeather {
-    //wrong
-    // fix dis tomorrow
     private var _temperature: String!, _location: String!, _currentDate: String!, _weatherStatus: String!
-    
+
     var temperature: String {
         get {
             if _temperature == nil {
@@ -26,7 +24,7 @@ class CurrentWeather {
             _temperature = newValue
         }
     }
-    
+
     var location: String {
         get {
             if _location == nil {
@@ -38,7 +36,7 @@ class CurrentWeather {
             _location = newValue
         }
     }
-    
+
     var currentDate: String {
         get {
             if _currentDate == nil {
@@ -52,7 +50,7 @@ class CurrentWeather {
             _currentDate = newValue
         }
     }
-    
+
     var weatherStatus: String {
         get {
             if _weatherStatus == nil {
@@ -64,26 +62,26 @@ class CurrentWeather {
             _weatherStatus = newValue
         }
     }
-    
-    func downloadWeatherData(completed: @escaping () -> ()) {
-        let currentWeatherURL = URL(string: CURRENT_WEATHER_URL)
+
+    func downloadWeatherData(completed: @escaping () -> Void) {
+        let currentWeatherURL = URL(string: Url.currentWeatherUrl)
+        guard currentWeatherURL != nil else {
+            return
+        }
         Alamofire.request(currentWeatherURL!).responseJSON { response in
             if let dict = response.value as? [String: AnyObject] {
                 if let name = dict["name"] as? String {
                     self.location = name.capitalized
-                    print(self.location)
                 }
                 if let weather = dict["weather"] as? [[String: AnyObject]] {
                     if let main = weather[0]["main"] as? String {
                         self.weatherStatus = main.capitalized
-                        print(self.weatherStatus)
                     }
                 }
-                if let main = dict["main"] as? [String: AnyObject]{
+                if let main = dict["main"] as? [String: AnyObject] {
                     if let temp = main["temp"] as? Double {
                         let kelvinToCelsius = temp - 275.15
                             self.temperature = "\(round(kelvinToCelsius))"
-                        print(self.temperature)
                     }
                 }
             }
@@ -91,9 +89,3 @@ class CurrentWeather {
         }
     }
 }
-
-
-
-
-
-

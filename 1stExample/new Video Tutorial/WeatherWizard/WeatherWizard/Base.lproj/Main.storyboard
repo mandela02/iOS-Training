@@ -9,10 +9,10 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--WeatherVC-->
+        <!--Weather View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="WeatherVC" customModule="WeatherWizard" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="WeatherViewController" customModule="WeatherWizard" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -90,7 +90,7 @@
                                 <rect key="frame" x="0.0" y="243.5" width="375" height="423.5"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="Cell" rowHeight="100" id="J3x-0j-5hO" customClass="WeatherCell" customModule="WeatherWizard" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="Cell" rowHeight="100" id="J3x-0j-5hO" customClass="WeatherTableViewCell" customModule="WeatherWizard" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="375" height="100"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="J3x-0j-5hO" id="Aj0-0A-802">
@@ -167,11 +167,11 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <outlet property="imgWeatherMini" destination="vkn-Bd-Amh" id="OwR-gq-wNv"/>
-                                            <outlet property="lblDay" destination="LcR-fx-h9g" id="So6-Ia-ifo"/>
-                                            <outlet property="lblMaxTemperature" destination="mtF-8y-GnW" id="JrJ-mc-Z62"/>
-                                            <outlet property="lblMinTemperature" destination="YoY-9o-6hF" id="Qx1-Db-OxQ"/>
-                                            <outlet property="lblStatus" destination="S79-Iq-C5o" id="Wii-n9-Izu"/>
+                                            <outlet property="dateLabel" destination="LcR-fx-h9g" id="So6-Ia-ifo"/>
+                                            <outlet property="maxTemperatureLabel" destination="mtF-8y-GnW" id="JrJ-mc-Z62"/>
+                                            <outlet property="minTemperatureLabel" destination="YoY-9o-6hF" id="Qx1-Db-OxQ"/>
+                                            <outlet property="statusLabel" destination="S79-Iq-C5o" id="Wii-n9-Izu"/>
+                                            <outlet property="weatherMiniImage" destination="vkn-Bd-Amh" id="OwR-gq-wNv"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -191,12 +191,12 @@
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <connections>
-                        <outlet property="imgWeatherStatus" destination="DWq-Iy-khF" id="bCa-hR-uog"/>
-                        <outlet property="lblDate" destination="7Tg-5A-zMU" id="Stj-cA-NBA"/>
-                        <outlet property="lblLocation" destination="gKZ-lW-ICW" id="R8O-Rp-Tt6"/>
-                        <outlet property="lblTemperature" destination="v1q-fJ-EHI" id="qOW-fR-Gc4"/>
-                        <outlet property="lblWeatherStatus" destination="RQb-gL-VTu" id="iBY-TH-bkd"/>
-                        <outlet property="tblBroadcast" destination="uzD-Db-XZc" id="hJO-w8-0ek"/>
+                        <outlet property="dateLabel" destination="7Tg-5A-zMU" id="ewv-oJ-Abk"/>
+                        <outlet property="forecastTable" destination="uzD-Db-XZc" id="0rh-z6-Lbh"/>
+                        <outlet property="locationLabel" destination="gKZ-lW-ICW" id="4na-De-HOG"/>
+                        <outlet property="temperatureLabel" destination="v1q-fJ-EHI" id="Mxy-hd-ppx"/>
+                        <outlet property="weatherStatusImage" destination="DWq-Iy-khF" id="Kdz-VS-xka"/>
+                        <outlet property="weatherStatusLabel" destination="RQb-gL-VTu" id="VRL-7n-Fxn"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
