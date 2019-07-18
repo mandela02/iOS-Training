@@ -19,7 +19,6 @@ class ForecastData {
                     for obj in list {
                         let forecast = Forecast(forecast: obj)
                         self.listOfForecastData.append(forecast)
-                        print(obj)
                     }
                 }
             }

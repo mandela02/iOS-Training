@@ -26,10 +26,11 @@ class WeatherVC: UIViewController {
         weather.downloadWeatherData {
             self.forecast.downloadBroadcastData {
                 self.updateUI()
-                self.tblBroadcast.dataSource = self
-                self.tblBroadcast.delegate = self
+                self.tblBroadcast.reloadData()
             }
         }
+        tblBroadcast.dataSource = self
+        tblBroadcast.delegate = self
     }
     
     func updateUI() {
@@ -46,12 +47,15 @@ extension WeatherVC: UITableViewDelegate {}
 extension WeatherVC: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return forecast.listOfForecastData.count
+
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "Cell") as? WeatherCell else {
             fatalError()
         }
+        
+        
         cell.updateCellUI(broadcastData: forecast.listOfForecastData[indexPath.row])
         return cell
     }

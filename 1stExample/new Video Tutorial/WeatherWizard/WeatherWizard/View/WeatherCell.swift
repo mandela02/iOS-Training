@@ -12,7 +12,7 @@ class WeatherCell: UITableViewCell {
 
     @IBOutlet weak var imgWeatherMini: UIImageView!
     @IBOutlet weak var lblDay: UILabel!
-    @IBOutlet weak var lblStatus: UILabel!    
+    @IBOutlet weak var lblStatus: UILabel!
     @IBOutlet weak var lblMinTemperature: UILabel!
     @IBOutlet weak var lblMaxTemperature: UILabel!
 

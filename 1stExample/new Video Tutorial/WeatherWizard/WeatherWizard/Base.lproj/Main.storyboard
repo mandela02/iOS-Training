@@ -35,15 +35,15 @@
                                                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
-                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="749" verticalHuggingPriority="749" text="80ºC" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="v1q-fJ-EHI">
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="749" verticalHuggingPriority="749" horizontalCompressionResistancePriority="749" verticalCompressionResistancePriority="749" text="80ºC" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="v1q-fJ-EHI">
                                                                 <rect key="frame" x="0.0" y="27.5" width="167.5" height="137"/>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="57"/>
                                                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
-                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="751" verticalHuggingPriority="751" text="Gotham, America" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gKZ-lW-ICW">
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="751" verticalHuggingPriority="751" horizontalCompressionResistancePriority="751" verticalCompressionResistancePriority="751" text="Gotham, America" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gKZ-lW-ICW">
                                                                 <rect key="frame" x="0.0" y="172.5" width="167.5" height="30"/>
-                                                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                                                <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
                                                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
@@ -167,7 +167,7 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <outlet property="imgWeatherMini" destination="vkn-Bd-Amh" id="K3Z-tQ-1o9"/>
+                                            <outlet property="imgWeatherMini" destination="vkn-Bd-Amh" id="OwR-gq-wNv"/>
                                             <outlet property="lblDay" destination="LcR-fx-h9g" id="So6-Ia-ifo"/>
                                             <outlet property="lblMaxTemperature" destination="mtF-8y-GnW" id="JrJ-mc-Z62"/>
                                             <outlet property="lblMinTemperature" destination="YoY-9o-6hF" id="Qx1-Db-OxQ"/>
@@ -191,7 +191,7 @@
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <connections>
-                        <outlet property="imgWeatherStatus" destination="DWq-Iy-khF" id="npI-Xl-JzT"/>
+                        <outlet property="imgWeatherStatus" destination="DWq-Iy-khF" id="bCa-hR-uog"/>
                         <outlet property="lblDate" destination="7Tg-5A-zMU" id="Stj-cA-NBA"/>
                         <outlet property="lblLocation" destination="gKZ-lW-ICW" id="R8O-Rp-Tt6"/>
                         <outlet property="lblTemperature" destination="v1q-fJ-EHI" id="qOW-fR-Gc4"/>
