@@ -78,7 +78,8 @@ class Forecast {
             let unixDate = Date(timeIntervalSince1970: dt)
             let dateFormatter = DateFormatter()
             //date format for day of week
-            dateFormatter.dateFormat = "EEEE"
+            dateFormatter.dateStyle = .full
+            dateFormatter.timeStyle = .none
             self.date = dateFormatter.string(from: unixDate)
         }
     }
