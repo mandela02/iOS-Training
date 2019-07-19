@@ -203,6 +203,54 @@
             </objects>
             <point key="canvasLocation" x="133.59999999999999" y="133.5832083958021"/>
         </scene>
+        <!--Second View Controller-->
+        <scene sceneID="XJl-3j-AHH">
+            <objects>
+                <viewController id="RrE-oD-Bhz" customClass="SecondViewController" customModule="WeatherWizard" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="miN-aj-XHy">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="39" translatesAutoresizingMaskIntoConstraints="NO" id="6yR-O2-lHG">
+                                <rect key="frame" x="20" y="40" width="335" height="607"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="252" text="Date" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MtP-W1-hjc">
+                                        <rect key="frame" x="149.5" y="0.0" width="36" height="20.5"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="3ld-yH-B8V">
+                                        <rect key="frame" x="47.5" y="59.5" width="240" height="488"/>
+                                    </imageView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="252" text="Status " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BbD-CB-Aq2">
+                                        <rect key="frame" x="141" y="586.5" width="53.5" height="20.5"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                            </stackView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="4YX-yQ-C00" firstAttribute="trailing" secondItem="6yR-O2-lHG" secondAttribute="trailing" constant="20" id="5CF-4V-rLg"/>
+                            <constraint firstItem="6yR-O2-lHG" firstAttribute="leading" secondItem="4YX-yQ-C00" secondAttribute="leading" constant="20" id="DNe-F8-y3o"/>
+                            <constraint firstItem="4YX-yQ-C00" firstAttribute="bottom" secondItem="6yR-O2-lHG" secondAttribute="bottom" constant="20" id="tHF-c9-QWI"/>
+                            <constraint firstItem="6yR-O2-lHG" firstAttribute="top" secondItem="4YX-yQ-C00" secondAttribute="top" constant="20" id="trq-zW-HDw"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="4YX-yQ-C00"/>
+                    </view>
+                    <connections>
+                        <outlet property="dateLabel" destination="MtP-W1-hjc" id="35k-qF-ahJ"/>
+                        <outlet property="weatherStatusImage" destination="3ld-yH-B8V" id="47J-rb-QfZ"/>
+                        <outlet property="weatherStatusLabel" destination="BbD-CB-Aq2" id="u6M-cK-Y0C"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="8sf-f6-kbs" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1020" y="134"/>
+        </scene>
     </scenes>
     <resources>
         <image name="Rain" width="92" height="92"/>

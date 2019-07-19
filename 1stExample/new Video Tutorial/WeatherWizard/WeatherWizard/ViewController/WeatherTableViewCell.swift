@@ -22,6 +22,7 @@ class WeatherTableViewCell: UITableViewCell {
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
+        //statusLabel.text = "Selected"
     }
 
     func updateCellUI(broadcastData: Forecast) {

@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14283.14"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--View Controller-->
+        <scene sceneID="tne-QT-ifu">
+            <objects>
+                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="LearnToPassDataWithProtocol" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ReceivedData" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fhn-Xn-BgT">
+                                <rect key="frame" x="134.5" y="80" width="106" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XoF-Tl-1Aj">
+                                <rect key="frame" x="91.5" y="201" width="192" height="30"/>
+                                <state key="normal" title="SEND THE DATA TO 2nd VC"/>
+                                <connections>
+                                    <segue destination="rHH-db-SM3" kind="show" identifier="getDataSegue" id="MJO-ac-fW4"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="XoF-Tl-1Aj" firstAttribute="top" secondItem="fhn-Xn-BgT" secondAttribute="bottom" constant="100" id="LP6-Wj-YMc"/>
+                            <constraint firstItem="XoF-Tl-1Aj" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="UIW-hI-9zK"/>
+                            <constraint firstItem="fhn-Xn-BgT" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="60" id="iCO-Gx-Uv8"/>
+                            <constraint firstItem="fhn-Xn-BgT" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="xuI-dV-BeI"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
+                    </view>
+                    <connections>
+                        <outlet property="datalabel" destination="fhn-Xn-BgT" id="X2I-gj-XZr"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="132" y="133.5832083958021"/>
+        </scene>
+        <!--Second View Controller-->
+        <scene sceneID="xQQ-m5-c58">
+            <objects>
+                <viewController id="rHH-db-SM3" customClass="SecondViewController" customModule="LearnToPassDataWithProtocol" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="ELs-af-ltV">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter Message Here" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="RrJ-Sr-Gb6">
+                                <rect key="frame" x="111.5" y="80" width="152" height="30"/>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="T0K-gl-tci">
+                                <rect key="frame" x="80" y="210" width="215" height="30"/>
+                                <state key="normal" title="SEND DATA TO 1st VC NOW &lt;3"/>
+                                <connections>
+                                    <action selector="sendDataToFirstViewControllerEvent:" destination="rHH-db-SM3" eventType="touchUpInside" id="zB9-EC-8Xk"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ReceivedData" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="s7f-0Y-h6M">
+                                <rect key="frame" x="134.5" y="260" width="106" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="RrJ-Sr-Gb6" firstAttribute="top" secondItem="xkO-0t-4VG" secondAttribute="top" constant="60" id="UvP-oe-t1x"/>
+                            <constraint firstItem="T0K-gl-tci" firstAttribute="top" secondItem="RrJ-Sr-Gb6" secondAttribute="bottom" constant="100" id="YaY-ou-Dcp"/>
+                            <constraint firstItem="s7f-0Y-h6M" firstAttribute="centerX" secondItem="ELs-af-ltV" secondAttribute="centerX" id="gOo-h1-XJq"/>
+                            <constraint firstItem="s7f-0Y-h6M" firstAttribute="top" secondItem="T0K-gl-tci" secondAttribute="bottom" constant="20" id="i9C-2C-gjE"/>
+                            <constraint firstItem="T0K-gl-tci" firstAttribute="centerX" secondItem="ELs-af-ltV" secondAttribute="centerX" id="wn7-8m-aeu"/>
+                            <constraint firstItem="RrJ-Sr-Gb6" firstAttribute="centerX" secondItem="ELs-af-ltV" secondAttribute="centerX" id="zFR-QR-Zbp"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="xkO-0t-4VG"/>
+                    </view>
+                    <connections>
+                        <outlet property="getDataTextField" destination="RrJ-Sr-Gb6" id="YHF-vX-OaW"/>
+                        <outlet property="receivedDataLabel" destination="s7f-0Y-h6M" id="fjf-pb-Sa2"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="JYK-CZ-mOR" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="940" y="134"/>
+        </scene>
+    </scenes>
+</document>

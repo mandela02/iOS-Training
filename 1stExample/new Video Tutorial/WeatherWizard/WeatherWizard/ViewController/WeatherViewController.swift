@@ -10,6 +10,11 @@ import UIKit
 
 class WeatherViewController: UIViewController {
 
+    enum Const {
+        static var reuseIdentifier = "Cell"
+        static var segueIdentifier = "TransferDataSegue"
+    }
+
     enum WeatherSection: Int, CaseIterable {
         case rain = 0, clear
     }
@@ -27,8 +32,15 @@ class WeatherViewController: UIViewController {
     let forecast = ForecastData()
     var groupWeatherdata: [WeatherSection: [Forecast]] = [:]
 
+    var result: String!
+
     override func viewDidLoad() {
         super.viewDidLoad()
+        forecastTable.dataSource = self
+        forecastTable.delegate = self
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
         weather.downloadWeatherData {
             self.forecast.downloadForecastData {
                 self.updateUI()
@@ -38,13 +50,6 @@ class WeatherViewController: UIViewController {
                 self.forecastTable.reloadData()
             }
         }
-        forecastTable.dataSource = self
-        forecastTable.delegate = self
-    }
-
-    override func viewDidAppear(_ animated: Bool) {
-        print(Url.currentWeatherUrl)
-        print(Url.forecastUrl)
     }
 
     private func updateUI() {
@@ -69,16 +74,20 @@ class WeatherViewController: UIViewController {
 
 extension WeatherViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        guard let cell = tableView.cellForRow(at: indexPath) as? WeatherTableViewCell  else {
-            return
-        }
-        let date = cell.dateLabel.text
-        let status = cell.statusLabel.text
-        let alertController = UIAlertController(title: date!, message: status!, preferredStyle: .alert)
-        let defaultAction = UIAlertAction(title: "Close Alert", style: .default, handler: nil)
-        alertController.addAction(defaultAction)
-
-        present(alertController, animated: true, completion: nil)
+//        if let tableSection = WeatherSection(rawValue: indexPath.section),
+//            let weatherData = groupWeatherdata[tableSection]?[indexPath.row] {
+//            self.performSegue(withIdentifier: Const.segueIdentifier, sender: weatherData)
+//        }
+//        guard let cell = tableView.cellForRow(at: indexPath) as? WeatherTableViewCell  else {
+//            return
+//        }
+//        let date = cell.dateLabel.text
+//        let status = cell.statusLabel.text
+//        let alertController = UIAlertController(title: date!, message: status!, preferredStyle: .alert)
+//        let defaultAction = UIAlertAction(title: "Close Alert", style: .default, handler: nil)
+//        alertController.addAction(defaultAction)
+//
+//        present(alertController, animated: true, completion: nil)
     }
 }
 
@@ -91,17 +100,13 @@ extension WeatherViewController: UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: "Cell") as? WeatherTableViewCell else {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: Const.reuseIdentifier)
+            as? WeatherTableViewCell else {
             fatalError()
         }
         if let tableSection = WeatherSection(rawValue: indexPath.section),
             let weatherData = groupWeatherdata[tableSection]?[indexPath.row] {
-            switch tableSection {
-            case .rain:
-                cell.updateCellUI(broadcastData: weatherData)
-            case .clear:
-                cell.updateCellUI(broadcastData: weatherData)
-            }
+            cell.updateCellUI(broadcastData: weatherData)
         }
         //cell.updateCellUI(broadcastData: forecast.listOfForecastData[indexPath.row])
         return cell
@@ -116,15 +121,17 @@ extension WeatherViewController: UITableViewDataSource {
     }
 
 //    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-//        let view = UIView(frame: CGRect(x: 0, y: 0, width: tableView.bounds.width, height: SectionHeaderHeight))
+//        let view = UIView(frame: CGRect(x: 0, y: 0, width: tableView.bounds.width, height: sectionHeaderHeight))
+//        view.backgroundColor = .blue
 //        let label = UILabel()
-//        label.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 5)
-//        label.topAnchor.constraint(equalTo: view.topAnchor, constant: 5)
-//        label.centerXAnchor.constraint(equalTo: view.centerXAnchor)
-//        label.centerYAnchor.constraint(equalTo: view.centerYAnchor)
+//        view.addSubview(label)
+//        label.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 5).isActive = true
+//        label.topAnchor.constraint(equalTo: view.topAnchor, constant: 5).isActive = true
+//        label.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+//        label.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
 //        label.textColor = .black
 //        label.text = "Weather"
-//        label.text = "Weather"
+//        label.backgroundColor = .red
 //        return view
 //    }
 
