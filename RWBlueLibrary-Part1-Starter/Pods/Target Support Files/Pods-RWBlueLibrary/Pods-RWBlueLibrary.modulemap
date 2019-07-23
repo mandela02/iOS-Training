@@ -1,0 +1,6 @@
+framework module Pods_RWBlueLibrary {
+  umbrella header "Pods-RWBlueLibrary-umbrella.h"
+
+  export *
+  module * { export * }
+}

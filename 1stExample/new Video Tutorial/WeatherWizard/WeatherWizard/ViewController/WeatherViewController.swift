@@ -119,12 +119,13 @@ extension WeatherViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return sectionHeaderHeight
     }
-
+//
 //    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
 //        let view = UIView(frame: CGRect(x: 0, y: 0, width: tableView.bounds.width, height: sectionHeaderHeight))
 //        view.backgroundColor = .blue
 //        let label = UILabel()
 //        view.addSubview(label)
+//        label.translatesAutoresizingMaskIntoConstraints = false
 //        label.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 5).isActive = true
 //        label.topAnchor.constraint(equalTo: view.topAnchor, constant: 5).isActive = true
 //        label.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
