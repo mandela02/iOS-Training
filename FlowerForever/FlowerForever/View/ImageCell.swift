@@ -14,13 +14,14 @@ class ImageCell: UITableViewCell {
     @IBOutlet weak var indicator: UIActivityIndicatorView!
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
     }
 
+    func updateCellUi(flower: Flower) {
+        indicator.isHidden = true
+        flowerImageView.downloaded(from: flower.largeImageUrl)
+    }
 }

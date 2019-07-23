@@ -1,0 +1,6 @@
+framework module Pods_FlowerForever {
+  umbrella header "Pods-FlowerForever-umbrella.h"
+
+  export *
+  module * { export * }
+}
