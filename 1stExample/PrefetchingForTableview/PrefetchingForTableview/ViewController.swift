@@ -72,9 +72,6 @@ class ViewController: UIViewController {
     
     func cancelDownload(forItemAtIndex index: Int) {
         let url = items[index].url
-//        guard let taskIndex = tasks.index(where: { $0.originalRequest?.url == url }) else {
-//            return
-//        }
         guard let index = tasks.index(where: { task in
             task.originalRequest?.url == url
         }) else {

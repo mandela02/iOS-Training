@@ -11,7 +11,6 @@ import UIKit
 class ImageCell: UITableViewCell {
 
     @IBOutlet weak var flowerImageView: UIImageView!
-    @IBOutlet weak var indicator: UIActivityIndicatorView!
     override func awakeFromNib() {
         super.awakeFromNib()
     }
@@ -21,7 +20,7 @@ class ImageCell: UITableViewCell {
     }
 
     func updateCellUi(flower: Flower) {
-        indicator.isHidden = true
+        flowerImageView.image = nil
         flowerImageView.downloaded(from: flower.largeImageUrl)
     }
 }

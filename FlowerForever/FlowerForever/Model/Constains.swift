@@ -8,25 +8,35 @@
 
 import Foundation
 
-enum Const {
-    static let cellIdentifier = "ImageCell"
-    static let baseUrl = "https://pixabay.com/api/"
-    static let apiId = "?key="
-    static var apiKey = "13112092-54e8286568142add194090167"
-    static let queueId = "&q="
-    static var queueKey = "yellow+flowers"
-    static let imageTypeId = "&image_type="
-    static var imageTypekey = "photo"
-}
+class Const {
+    static let shared = Const()
+    private init() {}
 
-enum Url {
-    static let yellowFlowersUrl = """
-    \(Const.baseUrl)\
-    \(Const.apiId)\
-    \(Const.apiKey)\
-    \(Const.queueId)\
-    \(Const.queueKey)\
-    \(Const.imageTypeId)\
-    \(Const.imageTypekey)
-    """
+    let cellIdentifier = "ImageCell"
+
+    let baseUrl = "https://pixabay.com/api/"
+    let apiId = "?key="
+    let apiKey = "13112092-54e8286568142add194090167"
+    let queueId = "&q="
+    let imageTypeId = "&image_type="
+    let pages = "&page="
+
+    var queueKey = "girl"
+    var imageTypekey = "photo"
+    var page = 1
+
+    var yellowFlowersUrl: String {
+        let url = """
+        \(baseUrl)\
+        \(apiId)\
+        \(apiKey)\
+        \(queueId)\
+        \(queueKey)\
+        \(imageTypeId)\
+        \(imageTypekey)\
+        \(pages)\
+        \(page)
+        """
+        return url
+    }
 }

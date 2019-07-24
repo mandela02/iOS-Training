@@ -9,7 +9,14 @@
 import UIKit
 
 extension UIImageView {
-     func downloaded(from url: URL){
+    func downloaded(from url: URL){
+        
+        let filename = url.lastPathComponent
+        if let savedImage = FlowersData.shared.getImage(with: filename) {
+            self.image = savedImage
+            return
+        }
+
         URLSession.shared.dataTask(with: url){ data, response, err in
             guard let httpURLResponse = response as? HTTPURLResponse, httpURLResponse.statusCode == 200,
                 let mimeType = response?.mimeType, mimeType.hasPrefix("image"),
@@ -18,6 +25,7 @@ extension UIImageView {
                 else { return }
             DispatchQueue.main.async() {
                 self.image = image
+                FlowersData.shared.saveImage(image, filename: filename)
             }
             }.resume()
     }
@@ -27,3 +35,4 @@ extension UIImageView {
         downloaded(from: url)
     }
 }
+
