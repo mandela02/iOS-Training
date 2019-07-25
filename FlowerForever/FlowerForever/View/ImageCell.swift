@@ -11,6 +11,8 @@ import UIKit
 class ImageCell: UITableViewCell {
 
     @IBOutlet weak var flowerImageView: UIImageView!
+    @IBOutlet weak var userImageView: UIImageView!
+    @IBOutlet weak var userNameLabel: UILabel!
     override func awakeFromNib() {
         super.awakeFromNib()
     }
@@ -19,8 +21,11 @@ class ImageCell: UITableViewCell {
         super.setSelected(selected, animated: animated)
     }
 
-    func updateCellUi(flower: Flower) {
+    func updateCellUi(flower: Image) {
+        userImageView.maskCircle()
         flowerImageView.image = nil
-        flowerImageView.downloaded(from: flower.largeImageUrl)
+        flowerImageView.downloaded(from: flower.largeImageURL)
+        userNameLabel.text = flower.user
+        userImageView.downloaded(from: flower.userImageURL)
     }
 }

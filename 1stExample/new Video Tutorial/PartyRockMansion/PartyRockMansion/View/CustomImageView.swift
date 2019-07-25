@@ -10,9 +10,8 @@ import UIKit
 
 extension UIImageView {
     func downloaded(from url: URL){
-        
         let filename = url.lastPathComponent
-        if let savedImage = FlowersData.shared.getImage(with: filename) {
+        if let savedImage = ImagesData.shared.getImage(with: filename) {
             self.image = savedImage
             return
         }
@@ -25,7 +24,7 @@ extension UIImageView {
                 else { return }
             DispatchQueue.main.async() {
                 self.image = image
-                FlowersData.shared.saveImage(image, filename: filename)
+                ImagesData.shared.saveImage(image, filename: filename)
             }
             }.resume()
     }
@@ -34,5 +33,12 @@ extension UIImageView {
         guard let url = URL(string: link) else { return }
         downloaded(from: url)
     }
+    public func maskCircle() {
+        self.contentMode = .scaleToFill
+        self.layer.cornerRadius = self.frame.height / 2
+        self.layer.masksToBounds = false
+        self.clipsToBounds = true
+    }
+
 }
 

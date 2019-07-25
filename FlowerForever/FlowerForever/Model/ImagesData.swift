@@ -10,28 +10,28 @@ import Foundation
 import Alamofire
 import UIKit
 
-class FlowersData {
-    static let shared = FlowersData()
-    var flowers: [Flower] = []
+class ImagesData {
+    static let shared = ImagesData()
+    var images: [Image] = []
 
     private init() {
     }
 
-    func downloadFlowersData(completed: @escaping () -> Void) {
-        guard let flowerUrl = URL(string: Const.shared.yellowFlowersUrl) else {
+    func downloadImagesData(completed: @escaping () -> Void) {
+        guard let imageURL = URL(string: Const.shared.imageURL) else {
             return
         }
         print("take: \(Const.shared.page)")
-        Alamofire.request(flowerUrl).responseJSON { response in
+        Alamofire.request(imageURL).responseJSON { response in
             if let dict = response.value as? [String: AnyObject] {
                 if let hits = dict["hits"] as? [[String: AnyObject]] {
-                    for flowerData in hits {
-                        let flower = Flower(flowerData: flowerData)
-                        self.flowers.append(flower)
+                    for imageData in hits {
+                        let image = Image(imageData: imageData)
+                        self.images.append(image)
                     }
                     completed()
                     let totalHits = dict["totalHits"] as? Int ?? 0
-                    if totalHits == self.flowers.count {
+                    if totalHits == self.images.count {
                         return
                     }
                 }

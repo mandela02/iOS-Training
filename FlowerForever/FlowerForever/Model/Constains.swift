@@ -14,6 +14,9 @@ class Const {
 
     let cellIdentifier = "ImageCell"
 
+    let defaultTitleHeight = 51
+    let defaultButtonHeight = 51
+
     let baseUrl = "https://pixabay.com/api/"
     let apiId = "?key="
     let apiKey = "13112092-54e8286568142add194090167"
@@ -25,15 +28,13 @@ class Const {
     var imageTypekey = "photo"
     var page = 1
 
-    var yellowFlowersUrl: String {
+    var imageURL: String {
         let url = """
         \(baseUrl)\
         \(apiId)\
         \(apiKey)\
         \(queueId)\
         \(queueKey)\
-        \(imageTypeId)\
-        \(imageTypekey)\
         \(pages)\
         \(page)
         """
