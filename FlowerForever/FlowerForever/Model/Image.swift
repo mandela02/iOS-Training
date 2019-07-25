@@ -87,6 +87,7 @@ class Image {
     init(imageData: [String: AnyObject]) {
         if let largeImageURL = imageData["largeImageURL"] as? String {
             self.largeImageURL = largeImageURL
+            print(largeImageURL)
         }
         if let imageWidth = imageData["imageWidth"] as? Double {
             self.imageWidth = imageWidth

@@ -10,6 +10,9 @@ import UIKit
 
 class ImageCell: UITableViewCell {
 
+    @IBOutlet weak var imageHeightConstraint: NSLayoutConstraint!
+    @IBOutlet weak var buttonView: UIView!
+    @IBOutlet weak var userInformationView: UIView!
     @IBOutlet weak var flowerImageView: UIImageView!
     @IBOutlet weak var userImageView: UIImageView!
     @IBOutlet weak var userNameLabel: UILabel!
@@ -21,11 +24,12 @@ class ImageCell: UITableViewCell {
         super.setSelected(selected, animated: animated)
     }
 
-    func updateCellUi(flower: Image) {
+    func updateCellUi(image: Image) {
+        imageHeightConstraint.constant = UIScreen.main.bounds.width * CGFloat(image.aspectRatio)
         userImageView.maskCircle()
         flowerImageView.image = nil
-        flowerImageView.downloaded(from: flower.largeImageURL)
-        userNameLabel.text = flower.user
-        userImageView.downloaded(from: flower.userImageURL)
+        flowerImageView.downloaded(from: image.largeImageURL)
+        userNameLabel.text = image.user
+        userImageView.downloaded(from: image.userImageURL)
     }
 }

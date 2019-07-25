@@ -21,6 +21,7 @@ class ImagesData {
         guard let imageURL = URL(string: Const.shared.imageURL) else {
             return
         }
+
         print("take: \(Const.shared.page)")
         Alamofire.request(imageURL).responseJSON { response in
             if let dict = response.value as? [String: AnyObject] {

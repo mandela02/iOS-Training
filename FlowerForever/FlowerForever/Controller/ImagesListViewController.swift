@@ -14,11 +14,19 @@ class ImageListViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        navigationItem.largeTitleDisplayMode = .automatic
+        initTableView()
+    }
+
+    func initTableView() {
         imagesTable.dataSource = self
         imagesTable.delegate = self
         imagesTable.prefetchDataSource = self
-        imagesTable.rowHeight = UITableView.automaticDimension
-        imagesTable.estimatedRowHeight = 600
+
+//        imagesTable.rowHeight = UITableView.automaticDimension
+//        imagesTable.estimatedRowHeight = 600
+
         ImagesData.shared.downloadImagesData {
             print("Number of links: \(ImagesData.shared.images.count)")
             self.imagesTable.reloadData()
@@ -29,6 +37,15 @@ class ImageListViewController: UIViewController {
 extension ImageListViewController: UITableViewDelegate {}
 
 extension ImageListViewController: UITableViewDataSource {
+
+    func getCell(_ tableView: UITableView) -> ImageCell {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: Const.shared.cellIdentifier)
+            as? ImageCell else {
+                fatalError()
+        }
+        return cell
+    }
+
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
@@ -38,20 +55,17 @@ extension ImageListViewController: UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: Const.shared.cellIdentifier)
-            as? ImageCell else {
-                fatalError()
-        }
-        print(ImagesData.shared.images[indexPath.row].aspectRatio)
-        cell.updateCellUi(flower: ImagesData.shared.images[indexPath.row])
+        let cell = getCell(tableView)
+        cell.updateCellUi(image: ImagesData.shared.images[indexPath.row])
         return cell
     }
 
 //    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+//        let cell = getCell(tableView)
 //        return tableView.frame.width
 //            * CGFloat(ImagesData.shared.images[indexPath.row].aspectRatio)
-//            + CGFloat(Const.shared.defaultTitleHeight)
-//            + CGFloat(Const.shared.defaultButtonHeight)
+//            + cell.buttonView.frame.height
+//            + cell.userInformationView.frame.height
 //    }
 }
 
@@ -66,5 +80,12 @@ extension ImageListViewController: UITableViewDataSourcePrefetching {
                 }
             }
         }
+    }
+}
+
+extension NSLayoutConstraint {
+    override open var description: String {
+        let id = identifier ?? ""
+        return "id: \(id), constant: \(constant)" //you may print whatever you want here
     }
 }
