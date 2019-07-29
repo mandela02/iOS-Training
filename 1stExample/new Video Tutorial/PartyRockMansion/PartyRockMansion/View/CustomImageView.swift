@@ -10,12 +10,12 @@ import UIKit
 
 extension UIImageView {
     func downloaded(from url: URL){
+        self.image = nil
         let filename = url.lastPathComponent
         if let savedImage = ImagesData.shared.getImage(with: filename) {
             self.image = savedImage
             return
         }
-
         URLSession.shared.dataTask(with: url){ data, response, err in
             guard let httpURLResponse = response as? HTTPURLResponse, httpURLResponse.statusCode == 200,
                 let mimeType = response?.mimeType, mimeType.hasPrefix("image"),
@@ -26,7 +26,7 @@ extension UIImageView {
                 self.image = image
                 ImagesData.shared.saveImage(image, filename: filename)
             }
-            }.resume()
+        }.resume()
     }
 
     func downloaded(from link: String) {
@@ -39,6 +39,6 @@ extension UIImageView {
         self.layer.masksToBounds = false
         self.clipsToBounds = true
     }
-
 }
+
 

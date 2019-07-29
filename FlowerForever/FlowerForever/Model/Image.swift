@@ -15,6 +15,19 @@ class Image {
     private var _imageHeight: Double!
     private var _user: String!
     private var _userImageURL: String!
+    private var _isLiked: Bool!
+
+    var isLiked: Bool {
+        get {
+            if _isLiked == nil {
+                _isLiked = false
+            }
+            return _isLiked
+        }
+        set {
+            _isLiked = newValue
+        }
+    }
 
     var userImageURL: String {
         get {
@@ -87,7 +100,7 @@ class Image {
     init(imageData: [String: AnyObject]) {
         if let largeImageURL = imageData["largeImageURL"] as? String {
             self.largeImageURL = largeImageURL
-            print(largeImageURL)
+            //print(largeImageURL)
         }
         if let imageWidth = imageData["imageWidth"] as? Double {
             self.imageWidth = imageWidth

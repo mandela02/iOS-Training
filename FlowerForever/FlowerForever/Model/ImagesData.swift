@@ -22,7 +22,7 @@ class ImagesData {
             return
         }
 
-        print("take: \(Const.shared.page)")
+        //print("take: \(Const.shared.page)")
         Alamofire.request(imageURL).responseJSON { response in
             if let dict = response.value as? [String: AnyObject] {
                 if let hits = dict["hits"] as? [[String: AnyObject]] {
