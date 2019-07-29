@@ -12,7 +12,7 @@ extension UIImageView {
     func downloaded(from url: URL){
         self.image = nil
         let filename = url.lastPathComponent
-        if let savedImage = ImagesData.shared.getImage(with: filename) {
+        if let savedImage = ImagesAPI.shared.getImageFromCache(with: filename) {
             self.image = savedImage
             return
         }
@@ -24,7 +24,7 @@ extension UIImageView {
                 else { return }
             DispatchQueue.main.async() {
                 self.image = image
-                ImagesData.shared.saveImage(image, filename: filename)
+                ImagesAPI.shared.saveImageToCache(image, filename: filename)
             }
         }.resume()
     }

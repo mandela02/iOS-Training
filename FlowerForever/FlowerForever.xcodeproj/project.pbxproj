@@ -7,9 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0418F09022EED1FB0048DF47 /* Database.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0418F08F22EED1FB0048DF47 /* Database.swift */; };
+		043941E222EEA4A700530390 /* FlowerForever.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 043941E022EEA4A700530390 /* FlowerForever.xcdatamodeld */; };
 		043E6E3D22E709500089F15F /* Constains.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043E6E3C22E709500089F15F /* Constains.swift */; };
 		043E6E3F22E70B990089F15F /* Image.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043E6E3E22E70B990089F15F /* Image.swift */; };
-		043E6E4122E70D9F0089F15F /* ImagesData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043E6E4022E70D9F0089F15F /* ImagesData.swift */; };
+		043E6E4122E70D9F0089F15F /* ImagesAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043E6E4022E70D9F0089F15F /* ImagesAPI.swift */; };
 		043E6E4322E7136A0089F15F /* CustomImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043E6E4222E7136A0089F15F /* CustomImageView.swift */; };
 		04E6785922E7056D00FABF90 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04E6785822E7056D00FABF90 /* AppDelegate.swift */; };
 		04E6785B22E7056D00FABF90 /* ImagesListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04E6785A22E7056D00FABF90 /* ImagesListViewController.swift */; };
@@ -34,9 +36,11 @@
 
 /* Begin PBXFileReference section */
 		004691879AA9096BB2B68346 /* Pods_FlowerForeverTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FlowerForeverTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		0418F08F22EED1FB0048DF47 /* Database.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Database.swift; sourceTree = "<group>"; };
+		043941E122EEA4A700530390 /* FlowerForever.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = FlowerForever.xcdatamodel; sourceTree = "<group>"; };
 		043E6E3C22E709500089F15F /* Constains.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constains.swift; sourceTree = "<group>"; };
 		043E6E3E22E70B990089F15F /* Image.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Image.swift; sourceTree = "<group>"; };
-		043E6E4022E70D9F0089F15F /* ImagesData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagesData.swift; sourceTree = "<group>"; };
+		043E6E4022E70D9F0089F15F /* ImagesAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagesAPI.swift; sourceTree = "<group>"; };
 		043E6E4222E7136A0089F15F /* CustomImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CustomImageView.swift; path = "../../../1stExample/new Video Tutorial/PartyRockMansion/PartyRockMansion/View/CustomImageView.swift"; sourceTree = "<group>"; };
 		04E6785522E7056D00FABF90 /* FlowerForever.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FlowerForever.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		04E6785822E7056D00FABF90 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -107,6 +111,7 @@
 				04E6785F22E7056E00FABF90 /* Assets.xcassets */,
 				04E6786122E7056E00FABF90 /* LaunchScreen.storyboard */,
 				04E6786422E7056E00FABF90 /* Info.plist */,
+				043941E022EEA4A700530390 /* FlowerForever.xcdatamodeld */,
 			);
 			path = FlowerForever;
 			sourceTree = "<group>";
@@ -134,7 +139,8 @@
 			children = (
 				043E6E3C22E709500089F15F /* Constains.swift */,
 				043E6E3E22E70B990089F15F /* Image.swift */,
-				043E6E4022E70D9F0089F15F /* ImagesData.swift */,
+				043E6E4022E70D9F0089F15F /* ImagesAPI.swift */,
+				0418F08F22EED1FB0048DF47 /* Database.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -355,9 +361,11 @@
 			files = (
 				043E6E3F22E70B990089F15F /* Image.swift in Sources */,
 				043E6E3D22E709500089F15F /* Constains.swift in Sources */,
-				043E6E4122E70D9F0089F15F /* ImagesData.swift in Sources */,
+				043941E222EEA4A700530390 /* FlowerForever.xcdatamodeld in Sources */,
+				043E6E4122E70D9F0089F15F /* ImagesAPI.swift in Sources */,
 				043E6E4322E7136A0089F15F /* CustomImageView.swift in Sources */,
 				04E6785B22E7056D00FABF90 /* ImagesListViewController.swift in Sources */,
+				0418F09022EED1FB0048DF47 /* Database.swift in Sources */,
 				04E6785922E7056D00FABF90 /* AppDelegate.swift in Sources */,
 				04E6787D22E706D600FABF90 /* ImageCell.swift in Sources */,
 			);
@@ -626,6 +634,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		043941E022EEA4A700530390 /* FlowerForever.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				043941E122EEA4A700530390 /* FlowerForever.xcdatamodel */,
+			);
+			currentVersion = 043941E122EEA4A700530390 /* FlowerForever.xcdatamodel */;
+			path = FlowerForever.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 04E6784D22E7056D00FABF90 /* Project object */;
 }

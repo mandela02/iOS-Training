@@ -16,6 +16,19 @@ class Image {
     private var _user: String!
     private var _userImageURL: String!
     private var _isLiked: Bool!
+    private var _imageID: Int!
+
+    var imageID: Int {
+        get {
+            if _imageID == nil {
+                _imageID = 0
+            }
+            return _imageID
+        }
+        set {
+            _imageID = newValue
+        }
+    }
 
     var isLiked: Bool {
         get {
@@ -113,6 +126,9 @@ class Image {
         }
         if let userImageURL = imageData["userImageURL"] as? String {
             self.userImageURL = userImageURL
+        }
+        if let imageID = imageData["id"] as? Int {
+            self.imageID = imageID
         }
     }
 }

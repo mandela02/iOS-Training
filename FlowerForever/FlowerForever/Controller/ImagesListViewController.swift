@@ -27,7 +27,7 @@ class ImageListViewController: UIViewController {
         imagesTable.rowHeight = UITableView.automaticDimension
         imagesTable.estimatedRowHeight = 2
 
-        ImagesData.shared.downloadImagesData {
+        ImagesAPI.shared.downloadImagesData {
             //print("Number of links: \(ImagesData.shared.images.count)")
             self.imagesTable.reloadData()
         }
@@ -40,15 +40,9 @@ class ImageListViewController: UIViewController {
         }
         return cell
     }
-
 }
 
 extension ImageListViewController: UITableViewDelegate {
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let cell = getCell(tableView)
-        cell.delegate = self
-        cell.mainImage = ImagesData.shared.images[indexPath.row]
-    }
 }
 
 extension ImageListViewController: UITableViewDataSource {
@@ -58,33 +52,25 @@ extension ImageListViewController: UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return ImagesData.shared.images.count
+        return ImagesAPI.shared.images.count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = getCell(tableView)
-        cell.mainImage = ImagesData.shared.images[indexPath.row]
+        cell.mainImage = ImagesAPI.shared.images[indexPath.row]
         cell.delegate = self
         cell.updateCellUi()
         return cell
     }
-
-//    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-//        let cell = getCell(tableView)
-//        return tableView.frame.width
-//            * CGFloat(ImagesData.shared.images[indexPath.row].aspectRatio)
-//            + cell.buttonView.frame.height
-//            + cell.userInformationView.frame.height
-//    }
 }
 
 extension ImageListViewController: UITableViewDataSourcePrefetching {
     func tableView(_ tableView: UITableView, prefetchRowsAt indexPaths: [IndexPath]) {
-        print(indexPaths)
+        //print(indexPaths)
         indexPaths.forEach { indexPath in
-            if indexPath.row == ImagesData.shared.images.count - 1 {
+            if indexPath.row == ImagesAPI.shared.images.count - 1 {
                 Const.shared.page += 1
-                ImagesData.shared.downloadImagesData {
+                ImagesAPI.shared.downloadImagesData {
                     tableView.reloadData()
                 }
             }
@@ -94,6 +80,15 @@ extension ImageListViewController: UITableViewDataSourcePrefetching {
 
 extension ImageListViewController: LikeDelegate {
     func imageCell(_ imageCell: ImageCell, likeButtonPressedFor image: Image) {
+        if image.isLiked == true {
+//            if let removedItemIndex = ImagesData.shared.likedImage.index(of: image.imageID) {
+//                ImagesData.shared.likedImage.remove(at: removedItemIndex)
+//            }
+            ImagesAPI.shared.deleteImageInDatabase(imageId: image.imageID)
+        } else {
+            ImagesAPI.shared.saveImagetoDatabase(imageId: image.imageID)
+            //ImagesData.shared.likedImage.append(image.imageID)
+        }
         image.isLiked = !image.isLiked
         imageCell.setLikeButtonImage()
     }

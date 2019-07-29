@@ -28,7 +28,7 @@ class ImageCell: UITableViewCell {
     var isLiked = false
     weak var delegate: LikeDelegate?
 
-    var mainImage: Image!
+    weak var mainImage: Image!
 
     override func awakeFromNib() {
         super.awakeFromNib()
