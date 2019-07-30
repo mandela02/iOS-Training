@@ -181,7 +181,7 @@
                     </view>
                     <navigationItem key="navigationItem" largeTitleDisplayMode="never" id="w7w-AM-oCA"/>
                     <connections>
-                        <outlet property="imagesTable" destination="Xpl-on-Zqp" id="6d6-oN-siP"/>
+                        <outlet property="imagesTableView" destination="Xpl-on-Zqp" id="6d6-oN-siP"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>

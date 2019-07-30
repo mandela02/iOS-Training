@@ -14,29 +14,28 @@ protocol reloadCollectionDelegateProtocol: class {
 
 class ImagesTableViewController: UIViewController {
 
-    @IBOutlet weak var imagesTable: UITableView!
+    @IBOutlet weak var imagesTableView: UITableView!
     weak var reloadDelegate: reloadCollectionDelegateProtocol?
     var index: IndexPath?
     override func viewDidLoad() {
         super.viewDidLoad()
         initTableView()
         DispatchQueue.main.async {
-            self.imagesTable.scrollToRow(at: self.index ?? [0, 0], at: .top, animated: false)
+            self.imagesTableView.scrollToRow(at: self.index ?? [0, 0], at: .top, animated: false)
         }
     }
 
     func initTableView() {
-        imagesTable.dataSource = self
-        imagesTable.delegate = self
-        imagesTable.prefetchDataSource = self
-        imagesTable.rowHeight = UITableView.automaticDimension
-        imagesTable.estimatedRowHeight = 2
+        imagesTableView.dataSource = self
+        imagesTableView.delegate = self
+        imagesTableView.prefetchDataSource = self
+        imagesTableView.rowHeight = UITableView.automaticDimension
+        imagesTableView.estimatedRowHeight = 2
     }
 
     func downloadData() {
         ImagesAPI.shared.downloadImagesData {
-            //print("Number of links: \(ImagesData.shared.images.count)")
-            self.imagesTable.reloadData()
+            self.imagesTableView.reloadData()
         }
     }
 
