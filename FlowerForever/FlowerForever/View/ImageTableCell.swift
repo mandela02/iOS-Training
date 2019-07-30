@@ -8,7 +8,7 @@
 
 import UIKit
 
-protocol LikeDelegate: class {
+protocol LikeDelegateInTableviewCell: class {
     func imageTableCell(_ imageCell: ImageTableCell, likeButtonPressedFor image: Image)
 }
 
@@ -25,7 +25,7 @@ class ImageTableCell: UITableViewCell {
     let mainImageTapGestureRecognizer = UITapGestureRecognizer()
 
     var isLiked = false
-    weak var delegate: LikeDelegate?
+    weak var likeDelegateInTableViewCell: LikeDelegateInTableviewCell?
 
     weak var mainImage: Image!
 
@@ -52,20 +52,25 @@ class ImageTableCell: UITableViewCell {
     }
 
     func setDelegate() {
-        guard delegate != nil else {
+        guard likeDelegateInTableViewCell != nil else {
             return
         }
-        delegate?.imageTableCell(self, likeButtonPressedFor: mainImage)
+        likeDelegateInTableViewCell?.imageTableCell(self, likeButtonPressedFor: mainImage)
     }
 
     func beginAnimation() {
         Animation.init().fadeOut(imageView: heartImageView)
     }
 
+    func setNil() {
+        mainImageView.image = nil
+        userImageView.image = nil
+        userNameLabel.text = nil
+    }
+
     func updateCellUi() {
         setLikeButtonImage()
         imageHeightConstraint.constant = UIScreen.main.bounds.width * CGFloat(mainImage.aspectRatio)
-        mainImageView.image = nil
         mainImageView.downloaded(from: mainImage.largeImageURL)
         userImageView.maskCircle()
         userImageView.downloaded(from: mainImage.userImageURL)

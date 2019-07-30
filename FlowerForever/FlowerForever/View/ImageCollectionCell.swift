@@ -18,7 +18,7 @@ class ImageCollectionCell: UICollectionViewCell {
     @IBOutlet weak var heartImageView: UIImageView!
     weak var mainImage: Image!
     let mainImageTapGestureRecognizer = UITapGestureRecognizer()
-    weak var delegate: LikeDelegateInCollectionCell?
+    weak var likeDelegateInCollectionViewCell: LikeDelegateInCollectionCell?
 
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -28,9 +28,9 @@ class ImageCollectionCell: UICollectionViewCell {
     }
 
     func updateCellUi() {
-        updatelikeImage()
         imageView.image = nil
         imageView.downloaded(from: mainImage.largeImageURL)
+        updatelikeImage()
     }
 
     func beginAnimation() {
@@ -38,7 +38,7 @@ class ImageCollectionCell: UICollectionViewCell {
     }
 
     @objc func mainImagePressedEvent() {
-        delegate?.imageCollectionCell(self, likeButtonPressedFor: mainImage)
+        likeDelegateInCollectionViewCell?.imageCollectionCell(self, likeButtonPressedFor: mainImage)
         beginAnimation()
     }
 

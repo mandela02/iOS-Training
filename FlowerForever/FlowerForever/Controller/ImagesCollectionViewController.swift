@@ -8,8 +8,8 @@
 
 import UIKit
 
-protocol reloadTableDelegateProtocol: class {
-    func pleaseReloadYourTable()
+protocol sendIndexPathProtocol: class {
+    func sendThisIndexPath(indexPath: IndexPath)
 }
 
 class ImagesCollectionViewController: UIViewController {
@@ -19,8 +19,10 @@ class ImagesCollectionViewController: UIViewController {
                                              bottom: 1.0,
                                              right: 1.0)
 
-    @IBOutlet weak var imagesCollection: UICollectionView!
-    weak var delegate: reloadTableDelegateProtocol?
+    @IBOutlet weak var imagesCollectionView: UICollectionView!
+
+    @IBOutlet var superView: UIView!
+    weak var sendIndexProtocol: sendIndexPathProtocol?
 
     var bigImageIndexPath: IndexPath? {
         didSet {
@@ -31,11 +33,11 @@ class ImagesCollectionViewController: UIViewController {
             if let new = bigImageIndexPath {
                 indexPaths.append(new)
             }
-            self.imagesCollection.performBatchUpdates({
-                imagesCollection.reloadItems(at: indexPaths)
+            self.imagesCollectionView.performBatchUpdates({
+                imagesCollectionView.reloadItems(at: indexPaths)
             }) { (_) in
                 if let new = self.bigImageIndexPath {
-                    self.imagesCollection.scrollToItem(at: new,
+                    self.imagesCollectionView.scrollToItem(at: new,
                                                        at: .centeredVertically,
                                                        animated: true)
                 }
@@ -46,18 +48,49 @@ class ImagesCollectionViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         initCollectionView()
+        downloadData()
     }
     func initCollectionView() {
-        imagesCollection.dataSource = self
-        imagesCollection.delegate = self
-        imagesCollection.prefetchDataSource = self
+        imagesCollectionView.dataSource = self
+        imagesCollectionView.delegate = self
+        imagesCollectionView.prefetchDataSource = self
     }
 
     func downloadData() {
         ImagesAPI.shared.downloadImagesData {
             //print("Number of links: \(ImagesData.shared.images.count)")
-            self.imagesCollection.reloadData()
+            if ImagesAPI.shared.images.count == 0 {
+                self.createEmptyImage()
+            } else {
+                self.imagesCollectionView.reloadData()
+            }
         }
+    }
+
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        guard let destination = segue.destination as? ImagesTableViewController else {
+            fatalError()
+        }
+        destination.reloadDelegate = self
+        self.sendIndexProtocol = destination
+        self.sendIndexProtocol?.sendThisIndexPath(indexPath: sender as? IndexPath ?? [0, 0])
+    }
+
+    @IBAction func dismissButtonTapped(_ sender: Any) {
+        dismiss(animated: true, completion: nil)
+    }
+
+    func createEmptyImage() {
+        imagesCollectionView.isHidden = true
+        let imageView = UIImageView()
+        superView.addSubview(imageView)
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        imageView.topAnchor.constraint(equalTo: superView.topAnchor, constant: 20).isActive = true
+        imageView.bottomAnchor.constraint(equalTo: superView.bottomAnchor, constant: 20).isActive = true
+        imageView.trailingAnchor.constraint(equalTo: superView.trailingAnchor, constant: -20).isActive = true
+        imageView.leadingAnchor.constraint(equalTo: superView.leadingAnchor, constant: 20).isActive = true
+        imageView.contentMode = .scaleAspectFit
+        imageView.downloaded(from: "https://cdn.dribbble.com/users/1554526/screenshots/3399669/no_results_found.png")
     }
 }
 
@@ -73,7 +106,7 @@ extension ImagesCollectionViewController: UICollectionViewDataSource {
         }
         cell.mainImage = ImagesAPI.shared.images[indexPath.item]
         cell.updateCellUi()
-        cell.delegate = self
+        cell.likeDelegateInCollectionViewCell = self
         return cell
     }
 }
@@ -112,34 +145,29 @@ extension ImagesCollectionViewController: UICollectionViewDelegateFlowLayout {
 }
 
 extension ImagesCollectionViewController: UICollectionViewDelegate {
-//    func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
-//        if bigImageIndexPath == indexPath {
-//            bigImageIndexPath = nil
-//        } else {
-//            bigImageIndexPath = indexPath
-//        }
-//        return false
-//    }
-//    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-//        if bigImageIndexPath == indexPath {
-//            bigImageIndexPath = nil
-//        } else {
-//            bigImageIndexPath = indexPath
-//        }
-//
-//    }
+    func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
+        if bigImageIndexPath == indexPath {
+            bigImageIndexPath = nil
+            return false
+        } else {
+            bigImageIndexPath = indexPath
+            return true
+        }
+    }
+
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        performSegue(withIdentifier: "SegueToTableView", sender: indexPath)
+    }
 }
 
 extension ImagesCollectionViewController: UICollectionViewDataSourcePrefetching {
     func collectionView(_ collectionView: UICollectionView, prefetchItemsAt indexPaths: [IndexPath]) {
+        print(indexPaths)
         indexPaths.forEach { indexPath in
             if indexPath.item == ImagesAPI.shared.images.count - 1 {
                 Const.shared.page += 1
                 ImagesAPI.shared.downloadImagesData {
                     collectionView.reloadData()
-                    if self.delegate != nil {
-                        self.delegate?.pleaseReloadYourTable()
-                    }
                 }
             }
         }
@@ -155,5 +183,11 @@ extension ImagesCollectionViewController: LikeDelegateInCollectionCell {
         }
         image.isLiked = !image.isLiked
         imageCell.updatelikeImage()
+    }
+}
+
+extension ImagesCollectionViewController: reloadCollectionDelegateProtocol {
+    func pleaseReloadYourCollection() {
+        imagesCollectionView.reloadData()
     }
 }

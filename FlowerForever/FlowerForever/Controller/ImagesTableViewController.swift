@@ -8,16 +8,21 @@
 
 import UIKit
 
+protocol reloadCollectionDelegateProtocol: class {
+    func pleaseReloadYourCollection()
+}
+
 class ImagesTableViewController: UIViewController {
 
     @IBOutlet weak var imagesTable: UITableView!
-
+    weak var reloadDelegate: reloadCollectionDelegateProtocol?
+    var index: IndexPath?
     override func viewDidLoad() {
         super.viewDidLoad()
-        navigationItem.largeTitleDisplayMode = .automatic
         initTableView()
-        Const.shared.page = 1
-        downloadData()
+        DispatchQueue.main.async {
+            self.imagesTable.scrollToRow(at: self.index ?? [0, 0], at: .top, animated: false)
+        }
     }
 
     func initTableView() {
@@ -42,14 +47,6 @@ class ImagesTableViewController: UIViewController {
         }
         return cell
     }
-
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        guard let destination = segue.destination as? ImagesCollectionViewController else {
-            return
-        }
-        destination.delegate = self
-        print("Begin segue")
-    }
 }
 
 extension ImagesTableViewController: UITableViewDelegate {
@@ -68,7 +65,8 @@ extension ImagesTableViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = getCell(tableView)
         cell.mainImage = ImagesAPI.shared.images[indexPath.row]
-        cell.delegate = self
+        cell.likeDelegateInTableViewCell = self
+        cell.setNil()
         cell.updateCellUi()
         return cell
     }
@@ -76,19 +74,22 @@ extension ImagesTableViewController: UITableViewDataSource {
 
 extension ImagesTableViewController: UITableViewDataSourcePrefetching {
     func tableView(_ tableView: UITableView, prefetchRowsAt indexPaths: [IndexPath]) {
-        print(indexPaths)
+        //print(indexPaths)
         indexPaths.forEach { indexPath in
             if indexPath.row == ImagesAPI.shared.images.count - 1 {
                 Const.shared.page += 1
                 ImagesAPI.shared.downloadImagesData {
                     tableView.reloadData()
+                    if self.reloadDelegate != nil {
+                        self.reloadDelegate?.pleaseReloadYourCollection()
+                    }
                 }
             }
         }
     }
 }
 
-extension ImagesTableViewController: LikeDelegate {
+extension ImagesTableViewController: LikeDelegateInTableviewCell {
     func imageTableCell(_ imageCell: ImageTableCell, likeButtonPressedFor image: Image) {
         if image.isLiked == true {
             ImagesAPI.shared.deleteImageInDatabase(imageId: image.imageID)
@@ -103,12 +104,12 @@ extension ImagesTableViewController: LikeDelegate {
 extension NSLayoutConstraint {
     override open var description: String {
         let constraintsID = identifier ?? ""
-        return "id: \(constraintsID), constant: \(constant)" //you may print whatever you want here
+        return "id: \(constraintsID), constant: \(constant)"
     }
 }
 
-extension ImagesTableViewController: reloadTableDelegateProtocol {
-    func pleaseReloadYourTable() {
-        imagesTable.reloadData()
+extension ImagesTableViewController: sendIndexPathProtocol {
+    func sendThisIndexPath(indexPath: IndexPath) {
+        index = indexPath
     }
 }

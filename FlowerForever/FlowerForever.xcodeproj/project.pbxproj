@@ -11,6 +11,7 @@
 		0418F09822EEF6B40048DF47 /* ImageCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0418F09722EEF6B40048DF47 /* ImageCollectionCell.swift */; };
 		0418F09A22EFE37D0048DF47 /* ImagesCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0418F09922EFE37D0048DF47 /* ImagesCollectionViewController.swift */; };
 		0418F09C22F02A130048DF47 /* Animation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0418F09B22F02A130048DF47 /* Animation.swift */; };
+		0429E6FA22F0464000C5F79A /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0429E6F922F0464000C5F79A /* SearchViewController.swift */; };
 		043941E222EEA4A700530390 /* FlowerForever.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 043941E022EEA4A700530390 /* FlowerForever.xcdatamodeld */; };
 		043E6E3D22E709500089F15F /* Constains.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043E6E3C22E709500089F15F /* Constains.swift */; };
 		043E6E3F22E70B990089F15F /* Image.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043E6E3E22E70B990089F15F /* Image.swift */; };
@@ -43,6 +44,7 @@
 		0418F09722EEF6B40048DF47 /* ImageCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCollectionCell.swift; sourceTree = "<group>"; };
 		0418F09922EFE37D0048DF47 /* ImagesCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagesCollectionViewController.swift; sourceTree = "<group>"; };
 		0418F09B22F02A130048DF47 /* Animation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Animation.swift; sourceTree = "<group>"; };
+		0429E6F922F0464000C5F79A /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
 		043941E122EEA4A700530390 /* FlowerForever.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = FlowerForever.xcdatamodel; sourceTree = "<group>"; };
 		043E6E3C22E709500089F15F /* Constains.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constains.swift; sourceTree = "<group>"; };
 		043E6E3E22E70B990089F15F /* Image.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Image.swift; sourceTree = "<group>"; };
@@ -158,6 +160,7 @@
 			children = (
 				04E6785A22E7056D00FABF90 /* ImagesTableViewController.swift */,
 				0418F09922EFE37D0048DF47 /* ImagesCollectionViewController.swift */,
+				0429E6F922F0464000C5F79A /* SearchViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -376,6 +379,7 @@
 				043E6E4322E7136A0089F15F /* CustomImageView.swift in Sources */,
 				04E6785B22E7056D00FABF90 /* ImagesTableViewController.swift in Sources */,
 				0418F09022EED1FB0048DF47 /* Database.swift in Sources */,
+				0429E6FA22F0464000C5F79A /* SearchViewController.swift in Sources */,
 				04E6785922E7056D00FABF90 /* AppDelegate.swift in Sources */,
 				0418F09A22EFE37D0048DF47 /* ImagesCollectionViewController.swift in Sources */,
 				0418F09C22F02A130048DF47 /* Animation.swift in Sources */,

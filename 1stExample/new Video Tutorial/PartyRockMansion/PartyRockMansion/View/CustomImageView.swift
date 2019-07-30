@@ -11,11 +11,6 @@ import UIKit
 extension UIImageView {
     func downloaded(from url: URL){
         self.image = nil
-        let filename = url.lastPathComponent
-        if let savedImage = ImagesAPI.shared.getImageFromCache(with: filename) {
-            self.image = savedImage
-            return
-        }
         URLSession.shared.dataTask(with: url){ data, response, err in
             guard let httpURLResponse = response as? HTTPURLResponse, httpURLResponse.statusCode == 200,
                 let mimeType = response?.mimeType, mimeType.hasPrefix("image"),
@@ -24,7 +19,6 @@ extension UIImageView {
                 else { return }
             DispatchQueue.main.async() {
                 self.image = image
-                ImagesAPI.shared.saveImageToCache(image, filename: filename)
             }
         }.resume()
     }
