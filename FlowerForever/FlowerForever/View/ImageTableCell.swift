@@ -9,10 +9,10 @@
 import UIKit
 
 protocol LikeDelegate: class {
-    func imageCell(_ imageCell: ImageCell, likeButtonPressedFor image: Image)
+    func imageTableCell(_ imageCell: ImageTableCell, likeButtonPressedFor image: Image)
 }
 
-class ImageCell: UITableViewCell {
+class ImageTableCell: UITableViewCell {
 
     @IBOutlet weak var likeButton: UIButton!
     @IBOutlet weak var imageHeightConstraint: NSLayoutConstraint!
@@ -21,7 +21,6 @@ class ImageCell: UITableViewCell {
     @IBOutlet weak var mainImageView: UIImageView!
     @IBOutlet weak var userImageView: UIImageView!
     @IBOutlet weak var userNameLabel: UILabel!
-
     @IBOutlet weak var heartImageView: UIImageView!
     let mainImageTapGestureRecognizer = UITapGestureRecognizer()
 
@@ -32,7 +31,7 @@ class ImageCell: UITableViewCell {
 
     override func awakeFromNib() {
         super.awakeFromNib()
-        mainImageTapGestureRecognizer.addTarget(self, action: #selector(ImageCell.mainImagePressedEvent))
+        mainImageTapGestureRecognizer.addTarget(self, action: #selector(ImageTableCell.mainImagePressedEvent))
         mainImageTapGestureRecognizer.numberOfTapsRequired = 2
         mainImageView.addGestureRecognizer(mainImageTapGestureRecognizer)
     }
@@ -56,18 +55,11 @@ class ImageCell: UITableViewCell {
         guard delegate != nil else {
             return
         }
-        delegate?.imageCell(self, likeButtonPressedFor: mainImage)
+        delegate?.imageTableCell(self, likeButtonPressedFor: mainImage)
     }
 
     func beginAnimation() {
-        heartImageView.isHidden = false
-        heartImageView.image = UIImage(named: "likeWhite")
-        heartImageView.alpha = 1.0
-        UIView.animate(withDuration: 1.0, animations: {
-            self.heartImageView.alpha = 0.0
-        }) { _ in
-            self.heartImageView.isHidden = true
-        }
+        Animation.init().fadeOut(imageView: heartImageView)
     }
 
     func updateCellUi() {
@@ -82,19 +74,5 @@ class ImageCell: UITableViewCell {
 
     func setLikeButtonImage() {
         likeButton.setImage(UIImage(named: mainImage.isLiked ? "likeRed" : "like"), for: .normal)
-    }
-}
-
-extension UIView {
-    func fadeIn() {
-        UIView.animate(withDuration: 0.5, delay: 0.0, options: .curveEaseOut, animations: {
-            self.alpha = 1.0
-        }, completion: nil)
-    }
-
-    func fadeOut() {
-        UIView.animate(withDuration: 0.5, delay: 1, options: .curveEaseIn, animations: {
-            self.alpha = 0.3
-        }, completion: nil)
     }
 }

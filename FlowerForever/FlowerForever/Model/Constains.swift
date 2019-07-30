@@ -7,15 +7,14 @@
 //
 
 import Foundation
+import UIKit
 
 class Const {
     static let shared = Const()
     private init() {}
 
     let cellIdentifier = "ImageCell"
-
-    let defaultTitleHeight = 51
-    let defaultButtonHeight = 51
+    let numberOfCellinRow: CGFloat = 3
 
     let baseUrl = "https://pixabay.com/api/"
     let apiId = "?key="

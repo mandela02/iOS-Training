@@ -8,44 +8,54 @@
 
 import UIKit
 
-class ImageListViewController: UIViewController {
+class ImagesTableViewController: UIViewController {
 
     @IBOutlet weak var imagesTable: UITableView!
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
         navigationItem.largeTitleDisplayMode = .automatic
         initTableView()
+        Const.shared.page = 1
+        downloadData()
     }
 
     func initTableView() {
         imagesTable.dataSource = self
         imagesTable.delegate = self
         imagesTable.prefetchDataSource = self
-
         imagesTable.rowHeight = UITableView.automaticDimension
         imagesTable.estimatedRowHeight = 2
+    }
 
+    func downloadData() {
         ImagesAPI.shared.downloadImagesData {
             //print("Number of links: \(ImagesData.shared.images.count)")
             self.imagesTable.reloadData()
         }
     }
 
-    func getCell(_ tableView: UITableView) -> ImageCell {
+    func getCell(_ tableView: UITableView) -> ImageTableCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: Const.shared.cellIdentifier)
-            as? ImageCell else {
+            as? ImageTableCell else {
                 fatalError()
         }
         return cell
     }
+
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        guard let destination = segue.destination as? ImagesCollectionViewController else {
+            return
+        }
+        destination.delegate = self
+        print("Begin segue")
+    }
 }
 
-extension ImageListViewController: UITableViewDelegate {
+extension ImagesTableViewController: UITableViewDelegate {
 }
 
-extension ImageListViewController: UITableViewDataSource {
+extension ImagesTableViewController: UITableViewDataSource {
 
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
@@ -64,9 +74,9 @@ extension ImageListViewController: UITableViewDataSource {
     }
 }
 
-extension ImageListViewController: UITableViewDataSourcePrefetching {
+extension ImagesTableViewController: UITableViewDataSourcePrefetching {
     func tableView(_ tableView: UITableView, prefetchRowsAt indexPaths: [IndexPath]) {
-        //print(indexPaths)
+        print(indexPaths)
         indexPaths.forEach { indexPath in
             if indexPath.row == ImagesAPI.shared.images.count - 1 {
                 Const.shared.page += 1
@@ -78,16 +88,12 @@ extension ImageListViewController: UITableViewDataSourcePrefetching {
     }
 }
 
-extension ImageListViewController: LikeDelegate {
-    func imageCell(_ imageCell: ImageCell, likeButtonPressedFor image: Image) {
+extension ImagesTableViewController: LikeDelegate {
+    func imageTableCell(_ imageCell: ImageTableCell, likeButtonPressedFor image: Image) {
         if image.isLiked == true {
-//            if let removedItemIndex = ImagesData.shared.likedImage.index(of: image.imageID) {
-//                ImagesData.shared.likedImage.remove(at: removedItemIndex)
-//            }
             ImagesAPI.shared.deleteImageInDatabase(imageId: image.imageID)
         } else {
             ImagesAPI.shared.saveImagetoDatabase(imageId: image.imageID)
-            //ImagesData.shared.likedImage.append(image.imageID)
         }
         image.isLiked = !image.isLiked
         imageCell.setLikeButtonImage()
@@ -98,5 +104,11 @@ extension NSLayoutConstraint {
     override open var description: String {
         let constraintsID = identifier ?? ""
         return "id: \(constraintsID), constant: \(constant)" //you may print whatever you want here
+    }
+}
+
+extension ImagesTableViewController: reloadTableDelegateProtocol {
+    func pleaseReloadYourTable() {
+        imagesTable.reloadData()
     }
 }
