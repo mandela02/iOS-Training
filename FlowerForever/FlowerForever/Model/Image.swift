@@ -8,6 +8,7 @@
 
 import Foundation
 import Alamofire
+import UIKit
 
 class Image {
     private var _largeImageURL: String!
@@ -17,6 +18,16 @@ class Image {
     private var _userImageURL: String!
     private var _isLiked: Bool!
     private var _imageID: Int!
+    private var _image: UIImage!
+
+    var image: UIImage? {
+        get {
+            return _image
+        }
+        set {
+            _image = newValue
+        }
+    }
 
     var imageID: Int {
         get {

@@ -8,14 +8,14 @@
 
 import UIKit
 
-protocol reloadCollectionDelegateProtocol: class {
+protocol ReloadCollectionDelegate: class {
     func pleaseReloadYourCollection()
 }
 
 class ImagesTableViewController: UIViewController {
 
     @IBOutlet weak var imagesTableView: UITableView!
-    weak var reloadDelegate: reloadCollectionDelegateProtocol?
+    weak var reloadDelegate: ReloadCollectionDelegate?
     var index: IndexPath?
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -64,7 +64,7 @@ extension ImagesTableViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = getCell(tableView)
         cell.mainImage = ImagesAPI.shared.images[indexPath.row]
-        cell.likeDelegateInTableViewCell = self
+        cell.likeInTableViewCellDelegate = self
         cell.setNil()
         cell.updateCellUi()
         return cell
@@ -77,10 +77,12 @@ extension ImagesTableViewController: UITableViewDataSourcePrefetching {
         indexPaths.forEach { indexPath in
             if indexPath.row == ImagesAPI.shared.images.count - 1 {
                 Const.shared.page += 1
-                ImagesAPI.shared.downloadImagesData {
-                    tableView.reloadData()
-                    if self.reloadDelegate != nil {
-                        self.reloadDelegate?.pleaseReloadYourCollection()
+                DispatchQueue.main.async {
+                    ImagesAPI.shared.downloadImagesData {
+                        tableView.reloadData()
+                        if self.reloadDelegate != nil {
+                            self.reloadDelegate?.pleaseReloadYourCollection()
+                        }
                     }
                 }
             }
@@ -88,7 +90,7 @@ extension ImagesTableViewController: UITableViewDataSourcePrefetching {
     }
 }
 
-extension ImagesTableViewController: LikeDelegateInTableviewCell {
+extension ImagesTableViewController: LikeInTableviewCellDelegate {
     func imageTableCell(_ imageCell: ImageTableCell, likeButtonPressedFor image: Image) {
         if image.isLiked == true {
             ImagesAPI.shared.deleteImageInDatabase(imageId: image.imageID)
@@ -107,7 +109,7 @@ extension NSLayoutConstraint {
     }
 }
 
-extension ImagesTableViewController: sendIndexPathProtocol {
+extension ImagesTableViewController: SendIndexPathDelegate {
     func sendThisIndexPath(indexPath: IndexPath) {
         index = indexPath
     }

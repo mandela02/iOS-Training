@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		0418F09022EED1FB0048DF47 /* Database.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0418F08F22EED1FB0048DF47 /* Database.swift */; };
+		0418F09022EED1FB0048DF47 /* CoreDataDatabase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0418F08F22EED1FB0048DF47 /* CoreDataDatabase.swift */; };
 		0418F09822EEF6B40048DF47 /* ImageCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0418F09722EEF6B40048DF47 /* ImageCollectionCell.swift */; };
 		0418F09A22EFE37D0048DF47 /* ImagesCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0418F09922EFE37D0048DF47 /* ImagesCollectionViewController.swift */; };
 		0418F09C22F02A130048DF47 /* Animation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0418F09B22F02A130048DF47 /* Animation.swift */; };
@@ -17,6 +17,8 @@
 		043E6E3F22E70B990089F15F /* Image.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043E6E3E22E70B990089F15F /* Image.swift */; };
 		043E6E4122E70D9F0089F15F /* ImagesAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043E6E4022E70D9F0089F15F /* ImagesAPI.swift */; };
 		043E6E4322E7136A0089F15F /* CustomImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043E6E4222E7136A0089F15F /* CustomImageView.swift */; };
+		0455AB4122F4126000325174 /* StoragedImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0455AB4022F4126000325174 /* StoragedImage.swift */; };
+		0455AB4322F4137400325174 /* RealmDatabase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0455AB4222F4137400325174 /* RealmDatabase.swift */; };
 		04E6785922E7056D00FABF90 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04E6785822E7056D00FABF90 /* AppDelegate.swift */; };
 		04E6785B22E7056D00FABF90 /* ImagesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04E6785A22E7056D00FABF90 /* ImagesTableViewController.swift */; };
 		04E6785E22E7056D00FABF90 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 04E6785C22E7056D00FABF90 /* Main.storyboard */; };
@@ -40,7 +42,7 @@
 
 /* Begin PBXFileReference section */
 		004691879AA9096BB2B68346 /* Pods_FlowerForeverTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FlowerForeverTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		0418F08F22EED1FB0048DF47 /* Database.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Database.swift; sourceTree = "<group>"; };
+		0418F08F22EED1FB0048DF47 /* CoreDataDatabase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataDatabase.swift; sourceTree = "<group>"; };
 		0418F09722EEF6B40048DF47 /* ImageCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCollectionCell.swift; sourceTree = "<group>"; };
 		0418F09922EFE37D0048DF47 /* ImagesCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagesCollectionViewController.swift; sourceTree = "<group>"; };
 		0418F09B22F02A130048DF47 /* Animation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Animation.swift; sourceTree = "<group>"; };
@@ -50,6 +52,8 @@
 		043E6E3E22E70B990089F15F /* Image.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Image.swift; sourceTree = "<group>"; };
 		043E6E4022E70D9F0089F15F /* ImagesAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagesAPI.swift; sourceTree = "<group>"; };
 		043E6E4222E7136A0089F15F /* CustomImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CustomImageView.swift; path = "../../../1stExample/new Video Tutorial/PartyRockMansion/PartyRockMansion/View/CustomImageView.swift"; sourceTree = "<group>"; };
+		0455AB4022F4126000325174 /* StoragedImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoragedImage.swift; sourceTree = "<group>"; };
+		0455AB4222F4137400325174 /* RealmDatabase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmDatabase.swift; sourceTree = "<group>"; };
 		04E6785522E7056D00FABF90 /* FlowerForever.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FlowerForever.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		04E6785822E7056D00FABF90 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		04E6785A22E7056D00FABF90 /* ImagesTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagesTableViewController.swift; sourceTree = "<group>"; };
@@ -149,8 +153,10 @@
 				043E6E3C22E709500089F15F /* Constains.swift */,
 				043E6E3E22E70B990089F15F /* Image.swift */,
 				043E6E4022E70D9F0089F15F /* ImagesAPI.swift */,
-				0418F08F22EED1FB0048DF47 /* Database.swift */,
+				0418F08F22EED1FB0048DF47 /* CoreDataDatabase.swift */,
 				0418F09B22F02A130048DF47 /* Animation.swift */,
+				0455AB4022F4126000325174 /* StoragedImage.swift */,
+				0455AB4222F4137400325174 /* RealmDatabase.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -372,13 +378,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				043E6E3F22E70B990089F15F /* Image.swift in Sources */,
+				0455AB4122F4126000325174 /* StoragedImage.swift in Sources */,
 				043E6E3D22E709500089F15F /* Constains.swift in Sources */,
 				043941E222EEA4A700530390 /* FlowerForever.xcdatamodeld in Sources */,
 				0418F09822EEF6B40048DF47 /* ImageCollectionCell.swift in Sources */,
+				0455AB4322F4137400325174 /* RealmDatabase.swift in Sources */,
 				043E6E4122E70D9F0089F15F /* ImagesAPI.swift in Sources */,
 				043E6E4322E7136A0089F15F /* CustomImageView.swift in Sources */,
 				04E6785B22E7056D00FABF90 /* ImagesTableViewController.swift in Sources */,
-				0418F09022EED1FB0048DF47 /* Database.swift in Sources */,
+				0418F09022EED1FB0048DF47 /* CoreDataDatabase.swift in Sources */,
 				0429E6FA22F0464000C5F79A /* SearchViewController.swift in Sources */,
 				04E6785922E7056D00FABF90 /* AppDelegate.swift in Sources */,
 				0418F09A22EFE37D0048DF47 /* ImagesCollectionViewController.swift in Sources */,

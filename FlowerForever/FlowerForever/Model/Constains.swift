@@ -13,6 +13,11 @@ class Const {
     static let shared = Const()
     private init() {}
 
+    let sectionInsets = UIEdgeInsets(top: 1.0,
+                                     left: 1.0,
+                                     bottom: 1.0,
+                                     right: 1.0)
+
     let cellIdentifier = "ImageCell"
     let numberOfCellinRow: CGFloat = 3
 

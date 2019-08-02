@@ -8,7 +8,7 @@ target 'FlowerForever' do
   # Pods for FlowerForever
     pod 'Alamofire', '~> 4.0'
     pod 'SwiftLint'
-
+    pod 'RealmSwift'
   target 'FlowerForeverTests' do
     inherit! :search_paths
     # Pods for testing

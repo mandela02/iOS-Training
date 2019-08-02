@@ -1,0 +1,6 @@
+framework module Pods_LearnRealm {
+  umbrella header "Pods-LearnRealm-umbrella.h"
+
+  export *
+  module * { export * }
+}

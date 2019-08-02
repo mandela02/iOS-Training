@@ -14,7 +14,9 @@ import CoreData
 class ImagesAPI {
     static let shared = ImagesAPI()
     var images: [Image] = []
-    var database = Database()
+    var tasks: [URLSessionDataTask] = []
+    var coreDataDatabase = CoreDataDatabase()
+    var realmDatabase = RealmDatabase()
 
     private init() {
     }
@@ -29,7 +31,10 @@ class ImagesAPI {
                     for imageData in hits {
                         let image = Image(imageData: imageData)
                         self.images.append(image)
-                        if self.database.isInDatabase(imageId: image.imageID) {
+//                        if self.coreDataDatabase.isInDatabase(imageId: image.imageID) {
+//                            image.isLiked = true
+//                        }
+                        if self.realmDatabase.isInDatabase(forImageId: image.imageID) {
                             image.isLiked = true
                         }
                     }
@@ -64,10 +69,42 @@ class ImagesAPI {
     }
 
     func saveImagetoDatabase(imageId: Int) {
-        database.saveIntoDatabase(imageId: imageId)
+        //coreDataDatabase.saveIntoDatabase(imageId: imageId)
+        realmDatabase.insertToDatabase(withImageId: imageId)
     }
 
     func deleteImageInDatabase(imageId: Int) {
-        database.deleteFromDatabase(imageId: imageId)
+        //coreDataDatabase.deleteFromDatabase(imageId: imageId)
+        realmDatabase.deleteFromDatabase(withImageId: imageId)
     }
+
+    //    func downloadImageTask(forIndexPath index: Int) {
+    //        guard let url = URL(string: Const.shared.imageURL) else {
+    //            fatalError()
+    //        }
+    //        let task = URLSession.shared.dataTask(with: url) { data, response, err in
+    //            guard let httpURLResponse = response as? HTTPURLResponse, httpURLResponse.statusCode == 200,
+    //                let mimeType = response?.mimeType, mimeType.hasPrefix("image"),
+    //                let data = data, err == nil,
+    //                let image = UIImage(data: data)
+    //                else { return }
+    //            DispatchQueue.main.async {
+    //                self.images[index].image = image
+    //            }
+    //        }
+    //        task.resume()
+    //        tasks.append(task)
+    //    }
+    //
+    //    func cancelDownloadingImage(forIndexPath index: Int) {
+    //        guard let url = URL(string: Const.shared.imageURL) else {
+    //            fatalError()
+    //        }
+    //        guard let taskIndex = tasks.index(where: { $0.originalRequest?.url == url }) else {
+    //            return
+    //        }
+    //        let task = tasks[taskIndex]
+    //        task.cancel()
+    //        tasks.remove(at: taskIndex)
+    //    }
 }

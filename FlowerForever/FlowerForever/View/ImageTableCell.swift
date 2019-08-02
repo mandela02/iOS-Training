@@ -8,7 +8,7 @@
 
 import UIKit
 
-protocol LikeDelegateInTableviewCell: class {
+protocol LikeInTableviewCellDelegate: class {
     func imageTableCell(_ imageCell: ImageTableCell, likeButtonPressedFor image: Image)
 }
 
@@ -25,7 +25,7 @@ class ImageTableCell: UITableViewCell {
     let mainImageTapGestureRecognizer = UITapGestureRecognizer()
 
     var isLiked = false
-    weak var likeDelegateInTableViewCell: LikeDelegateInTableviewCell?
+    weak var likeInTableViewCellDelegate: LikeInTableviewCellDelegate?
 
     weak var mainImage: Image!
 
@@ -52,10 +52,10 @@ class ImageTableCell: UITableViewCell {
     }
 
     func setDelegate() {
-        guard likeDelegateInTableViewCell != nil else {
+        guard likeInTableViewCellDelegate != nil else {
             return
         }
-        likeDelegateInTableViewCell?.imageTableCell(self, likeButtonPressedFor: mainImage)
+        likeInTableViewCellDelegate?.imageTableCell(self, likeButtonPressedFor: mainImage)
     }
 
     func beginAnimation() {

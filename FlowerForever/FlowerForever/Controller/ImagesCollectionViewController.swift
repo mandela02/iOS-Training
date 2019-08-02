@@ -8,21 +8,16 @@
 
 import UIKit
 
-protocol sendIndexPathProtocol: class {
+protocol SendIndexPathDelegate: class {
     func sendThisIndexPath(indexPath: IndexPath)
 }
 
 class ImagesCollectionViewController: UIViewController {
 
-    private let sectionInsets = UIEdgeInsets(top: 1.0,
-                                             left: 1.0,
-                                             bottom: 1.0,
-                                             right: 1.0)
-
     @IBOutlet weak var imagesCollectionView: UICollectionView!
-
     @IBOutlet var superView: UIView!
-    weak var sendIndexProtocol: sendIndexPathProtocol?
+
+    weak var sendIndexProtocol: SendIndexPathDelegate?
 
     var bigImageIndexPath: IndexPath? {
         didSet {
@@ -58,7 +53,6 @@ class ImagesCollectionViewController: UIViewController {
 
     func downloadData() {
         ImagesAPI.shared.downloadImagesData {
-            //print("Number of links: \(ImagesData.shared.images.count)")
             if ImagesAPI.shared.images.count == 0 {
                 self.createEmptyImage()
             } else {
@@ -116,31 +110,36 @@ extension ImagesCollectionViewController: UICollectionViewDelegateFlowLayout {
                         layout collectionViewLayout: UICollectionViewLayout,
                         sizeForItemAt indexPath: IndexPath) -> CGSize {
         if indexPath == bigImageIndexPath {
-            let width = UIScreen.main.bounds.size.width - sectionInsets.left - sectionInsets.right
+            let width = UIScreen.main.bounds.size.width
+                - Const.shared.sectionInsets.left
+                - Const.shared.sectionInsets.right
             let height = width * CGFloat(ImagesAPI.shared.images[indexPath.item].aspectRatio)
             return CGSize(width: width, height: height)
         }
-        let totalSpace = sectionInsets.left
-            + sectionInsets.right
-            + (sectionInsets.left * (Const.shared.numberOfCellinRow - 1))
-        let size = Int((UIScreen.main.bounds.width - totalSpace) / Const.shared.numberOfCellinRow)
+        let padding = Const.shared.sectionInsets.left
+            + Const.shared.sectionInsets.right
+            + (Const.shared.sectionInsets.left * (Const.shared.numberOfCellinRow - 1))
+//        if let collectionViewFlowLayout = collectionView.collectionViewLayout as? UICollectionViewFlowLayout {
+//            collectionViewFlowLayout.minimumLineSpacing 
+//        }
+        let size = Int((UIScreen.main.bounds.width - padding) / Const.shared.numberOfCellinRow)
         return CGSize(width: size, height: size)
     }
 
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
                         insetForSectionAt section: Int) -> UIEdgeInsets {
-        return sectionInsets
+        return Const.shared.sectionInsets
     }
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
                         minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
-        return sectionInsets.left
+        return Const.shared.sectionInsets.left
     }
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
                         minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-        return sectionInsets.bottom
+        return Const.shared.sectionInsets.bottom
     }
 }
 
@@ -162,19 +161,24 @@ extension ImagesCollectionViewController: UICollectionViewDelegate {
 
 extension ImagesCollectionViewController: UICollectionViewDataSourcePrefetching {
     func collectionView(_ collectionView: UICollectionView, prefetchItemsAt indexPaths: [IndexPath]) {
-        print(indexPaths)
         indexPaths.forEach { indexPath in
             if indexPath.item == ImagesAPI.shared.images.count - 1 {
                 Const.shared.page += 1
-                ImagesAPI.shared.downloadImagesData {
-                    collectionView.reloadData()
+                DispatchQueue.main.async {
+                    ImagesAPI.shared.downloadImagesData {
+                        collectionView.reloadData()
+                    }
                 }
             }
         }
     }
+
+    func collectionView(_ collectionView: UICollectionView, cancelPrefetchingForItemsAt indexPaths: [IndexPath]) {
+        print(indexPaths)
+    }
 }
 
-extension ImagesCollectionViewController: LikeDelegateInCollectionCell {
+extension ImagesCollectionViewController: LikeInCollectionCellDelegate {
     func imageCollectionCell(_ imageCell: ImageCollectionCell, likeButtonPressedFor image: Image) {
         if image.isLiked == true {
             ImagesAPI.shared.deleteImageInDatabase(imageId: image.imageID)
@@ -186,7 +190,7 @@ extension ImagesCollectionViewController: LikeDelegateInCollectionCell {
     }
 }
 
-extension ImagesCollectionViewController: reloadCollectionDelegateProtocol {
+extension ImagesCollectionViewController: ReloadCollectionDelegate {
     func pleaseReloadYourCollection() {
         imagesCollectionView.reloadData()
     }

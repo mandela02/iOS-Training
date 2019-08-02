@@ -7,18 +7,23 @@
 //
 
 import UIKit
+import Realm
 
-protocol LikeDelegateInCollectionCell: class {
+protocol LikeInCollectionCellDelegate: class {
     func imageCollectionCell(_ imageCell: ImageCollectionCell, likeButtonPressedFor image: Image)
 }
 
 class ImageCollectionCell: UICollectionViewCell {
+
     @IBOutlet weak var likeImageView: UIImageView!
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var heartImageView: UIImageView!
+
     weak var mainImage: Image!
+
     let mainImageTapGestureRecognizer = UITapGestureRecognizer()
-    weak var likeDelegateInCollectionViewCell: LikeDelegateInCollectionCell?
+
+    weak var likeDelegateInCollectionViewCell: LikeInCollectionCellDelegate?
 
     override func awakeFromNib() {
         super.awakeFromNib()
