@@ -55,6 +55,8 @@ class ViewController: UIViewController {
             }).disposed(by: disposeBag)
     }
     
+    private func prepareForSomething() {}
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         guard let _ = segue.destination as? AddFriendViewController else {
             return

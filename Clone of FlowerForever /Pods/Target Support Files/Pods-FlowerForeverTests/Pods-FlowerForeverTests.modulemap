@@ -1,6 +1,0 @@
-framework module Pods_FlowerForeverTests {
-  umbrella header "Pods-FlowerForeverTests-umbrella.h"
-
-  export *
-  module * { export * }
-}

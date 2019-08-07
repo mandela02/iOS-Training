@@ -51,7 +51,7 @@
 		043E6E3C22E709500089F15F /* Constains.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constains.swift; sourceTree = "<group>"; };
 		043E6E3E22E70B990089F15F /* Image.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Image.swift; sourceTree = "<group>"; };
 		043E6E4022E70D9F0089F15F /* ImagesAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagesAPI.swift; sourceTree = "<group>"; };
-		043E6E4222E7136A0089F15F /* CustomImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CustomImageView.swift; path = "../../../1stExample/new Video Tutorial/PartyRockMansion/PartyRockMansion/View/CustomImageView.swift"; sourceTree = "<group>"; };
+		043E6E4222E7136A0089F15F /* CustomImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CustomImageView.swift; path = ../../../FlowerForeverMVVM/FlowerForeverMVVM/CustomImageView.swift; sourceTree = "<group>"; };
 		0455AB4022F4126000325174 /* StoragedImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoragedImage.swift; sourceTree = "<group>"; };
 		0455AB4222F4137400325174 /* RealmDatabase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmDatabase.swift; sourceTree = "<group>"; };
 		04E6785522E7056D00FABF90 /* FlowerForever.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FlowerForever.app; sourceTree = BUILT_PRODUCTS_DIR; };

@@ -45,7 +45,6 @@ class ViewModel {
         guard let index = friendsList.index(where: {$0 === selectedFriend.value}) else {
             return
         }
-        print(index)
         friendsList[index].name = self.nameText.value
         friendsList[index].number = self.numberText.value
         friends.accept(friendsList)
