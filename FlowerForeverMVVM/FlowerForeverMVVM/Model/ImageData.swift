@@ -9,5 +9,6 @@
 import Foundation
 
 class ImageData: Codable {
-    let hits: [Hit]
+    var hits: [Hit]
+    let totalHits: Int
 }

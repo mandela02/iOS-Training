@@ -11,8 +11,15 @@ import Alamofire
 import RxSwift
 
 class ImageApi {
+
+    var currentRequest: Observable<ImageData>?
+
     func getImagesData(apiKey: String, queue: String, page: Int) -> Observable<ImageData> {
-        return request(ApiRouter.getImages(apiKey: apiKey, queue: queue, page: page))
+        currentRequest = request(ApiRouter.getImages(apiKey: apiKey, queue: queue, page: page))
+        return currentRequest!
+    }
+
+    func  cancelCurrentRequest() {
     }
 
     private func request<T: Codable> (_ urlConvertible: URLRequestConvertible) -> Observable<T> {
@@ -23,7 +30,7 @@ class ImageApi {
                     switch response.result {
                     case .success(_):
                         guard let model = try? JSONDecoder().decode(T.self, from: response.data!) else {
-                            fatalError()
+                            return
                         }
                         observer.onNext(model)
                         observer.onCompleted()
@@ -46,5 +53,25 @@ class ImageApi {
                 request.cancel()
             }
         }).retry(3)
+    }
+
+    private var cache: URL {
+        return FileManager.default.urls(for: .cachesDirectory, in: .userDomainMask)[0]
+    }
+
+    func saveImageToCache(_ image: UIImage, filename: String) {
+        let url = cache.appendingPathComponent(filename)
+        guard let data = image.pngData() else {
+            return
+        }
+        try? data.write(to: url)
+    }
+
+    func getImageFromCache(with filename: String) -> UIImage? {
+        let url = cache.appendingPathComponent(filename)
+        guard let data = try? Data(contentsOf: url) else {
+            return nil
+        }
+        return UIImage(data: data)
     }
 }

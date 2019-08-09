@@ -9,24 +9,44 @@
 import Foundation
 import RxSwift
 import RxCocoa
+import UIKit
 
 class ViewModel {
     static let shared = ViewModel()
     private let imageApi = ImageApi()
+    var realmDatabase = RealmDatabase()
     private init() {}
 
     private let disposeBag = DisposeBag()
 
-    func requireDataFromServer(withQuery query: String) -> BehaviorRelay<[Hit]> {
-        let images: BehaviorRelay<[Hit]> = BehaviorRelay(value: [])
-        guard query != "" else {
-            return images
+    private var imagesList: [Hit] = []
+
+    let images: BehaviorRelay<[Hit]> = BehaviorRelay(value: [])
+    var currentPage: BehaviorRelay<Int> = BehaviorRelay(value: 1)
+    var currentQuery: BehaviorRelay<String> = BehaviorRelay(value: "")
+    var prefetchIndex: BehaviorRelay<IndexPath> = BehaviorRelay(value: IndexPath(item: 0, section: 0))
+    var currentIndex: BehaviorRelay<IndexPath> = BehaviorRelay(value: IndexPath(item: 0, section: 0))
+    let totalHits: BehaviorRelay<Int> = BehaviorRelay(value: 0)
+
+    func clearMemory() {
+        imagesList.removeAll()
+        currentPage.accept(1)
+        images.accept([])
+        prefetchIndex.accept(IndexPath(item: 0, section: 0))
+    }
+
+    func downloadDataFromServer() {
+        guard currentQuery.value != "" else {
+            clearMemory()
+            return
         }
-        imageApi.getImagesData(apiKey: Constants.apiKey, queue: query, page: 1)
+        imageApi.getImagesData(apiKey: Constants.apiKey, queue: currentQuery.value, page: currentPage.value)
             .observeOn(MainScheduler.instance)
             .asObservable()
-            .subscribe(onNext: { imageData in
-                images.accept(imageData.hits)
+            .subscribe(onNext: { [weak self] imageData in
+                self?.imagesList = (self?.imagesList)! + imageData.hits
+                self?.images.accept((self?.imagesList)!)
+                self?.totalHits.accept(imageData.totalHits)
             }, onError: { error in
                 switch error {
                 case ApiError.conflict:
@@ -39,6 +59,32 @@ class ViewModel {
                     print("Unknown error:", error)
                 }
             }).disposed(by: disposeBag)
-    return images
+        currentPage.accept(currentPage.value + 1)
+    }
+
+    var triggerFetchingMoreData: Observable<Bool> {
+        return prefetchIndex
+            .asObservable()
+            .map({
+                $0.item == self.imagesList.count - 1
+                || $0.row == self.imagesList.count - 1
+                && self.imagesList.count <= self.totalHits.value})
+    }
+}
+
+extension ViewModel {
+    func getFileName(fromUrl url: String) -> String {
+        guard let filename = URL(string: url)?.lastPathComponent else {
+            return ""
+        }
+        return filename
+    }
+
+    func saveToCache(_ image: UIImage, inLink url: String) {
+        imageApi.saveImageToCache(image, filename: getFileName(fromUrl: url))
+    }
+
+    func getImageFromCache(inLink url: String) -> UIImage? {
+        return imageApi.getImageFromCache(with: getFileName(fromUrl: url))
     }
 }
