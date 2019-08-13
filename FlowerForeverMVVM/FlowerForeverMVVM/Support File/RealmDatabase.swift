@@ -9,12 +9,31 @@
 import Foundation
 import UIKit
 import RealmSwift
+import RxSwift
+import RxCocoa
 
 class RealmDatabase {
     var realm = try? Realm()
 
     var storagedImages: Results<StoragedImage>? {
-        return realm?.objects(StoragedImage.self) ?? nil
+        return realm?.objects(StoragedImage.self)
+    }
+
+    var disposeBag = DisposeBag()
+
+    init() {
+        initData()
+    }
+
+    var favoriteImagesList: BehaviorRelay<[Int]> = BehaviorRelay(value: [])
+
+    func initData() {
+        var list: [Int] = []
+        storagedImages?.forEach({ image in
+            list.append(image.imageId)
+        })
+        favoriteImagesList.accept(list)
+        print(favoriteImagesList.value)
     }
 
     func isInDatabase(forImageId imageId: Int) -> Bool {
@@ -38,6 +57,7 @@ class RealmDatabase {
         } catch let error as NSError {
             print(error.localizedDescription)
         }
+        favoriteImagesList.accept(favoriteImagesList.value + [imageId])
     }
 
     func deleteFromDatabase(withImageId imageId: Int) {
@@ -55,6 +75,10 @@ class RealmDatabase {
                 }
             }
         })
+        let index = favoriteImagesList.value.index(of: imageId)
+        var tempArray = favoriteImagesList.value
+        tempArray.remove(at: index!)
+        favoriteImagesList.accept(tempArray)
     }
 
     func deleteAllDatabase() {

@@ -140,7 +140,7 @@
                                                             </constraints>
                                                             <state key="normal" title="like" image="like"/>
                                                             <connections>
-                                                                <action selector="likeButtonTapped:" destination="vPW-uT-PyA" eventType="touchUpInside" id="Whv-a1-0nH"/>
+                                                                <action selector="likeButtonPressed:" destination="vPW-uT-PyA" eventType="touchUpInside" id="1Pv-vB-e1I"/>
                                                             </connections>
                                                         </button>
                                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HjY-DF-cjC" userLabel="Comment">

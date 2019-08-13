@@ -20,17 +20,17 @@ class TableViewCell: UITableViewCell {
     @IBOutlet weak var heartImageView: UIImageView!
 
     var mainImageTapGestureRecognizer = UITapGestureRecognizer()
-    var viewModel = ViewModelForCell()
-    var hit: Hit!
     var disposeBag = DisposeBag()
+
+    var viewModel = ViewModelForCell(withCurrentHit: BehaviorRelay(value: Hit()))
 
     override func prepareForReuse() {
         super.prepareForReuse()
+        userImageView.image = nil
         mainImageView.image = nil
         disposeBag = DisposeBag()
-        viewModel = ViewModelForCell()
         mainImageTapGestureRecognizer = UITapGestureRecognizer()
-        viewModel.currentImageId.accept(0)
+        viewModel = ViewModelForCell(withCurrentHit: BehaviorRelay(value: Hit()))
     }
 
     override func awakeFromNib() {
@@ -38,21 +38,20 @@ class TableViewCell: UITableViewCell {
         mainImageTapGestureRecognizer.addTarget(self, action: #selector(TableViewCell.mainImagePressedEvent))
         mainImageTapGestureRecognizer.numberOfTapsRequired = 2
         mainImageView.addGestureRecognizer(mainImageTapGestureRecognizer)
-        //likeButton.rx.tap.bind(onNext: viewModel.likeButtonTapped).disposed(by: disposeBag)
     }
 
-    @IBAction func likeButtonTapped(_ sender: Any) {
-//        viewModel.likeButtonTapped()
-//        setUpLikeButton()
-        print(viewModel.currentImageId.value)
+    @IBAction func likeButtonPressed(_ sender: Any) {
+        viewModel.likeButtonTapped()
+        viewModel.isInDatabase.subscribe(onNext: { isInDatabase in
+            self.likeButton.rx.image(for: .normal).onNext(UIImage(named: isInDatabase ? "likeRed" : "like"))
+        }).disposed(by: disposeBag)
     }
 
     @objc func mainImagePressedEvent() {
-        viewModel.isInDatabase.asObservable().subscribe(onNext: { [weak self] isInDatabase in
-            if !isInDatabase {
-                self?.viewModel.saveImagetoDatabase()
-                self?.likeButton.setImage(UIImage(named: "likeRed"), for: .normal)
-                self?.viewModel.initData()
+        likeButton.rx.image(for: .normal).onNext(UIImage(named: "likeRed"))
+        viewModel.isInDatabase.subscribe(onNext: { isIndatabase in
+            if !isIndatabase {
+                self.viewModel.saveImagetoDatabase()
             }
         }).disposed(by: disposeBag)
         beginAnimation()
@@ -62,25 +61,20 @@ class TableViewCell: UITableViewCell {
         Animation.init().fadeOut(imageView: heartImageView)
     }
 
-    func updateUI() {
-        viewModel.currentImageId.accept(hit.id)
-        imageHeightConstraint.constant = UIScreen.main.bounds.width * CGFloat(hit.imageHeight/hit.imageWidth)
-        mainImageView.downloaded(from: hit.largeImageURL)
-        userImageView.maskCircle()
-        userImageView.downloaded(from: hit.userImageURL)
-        userNameLabel.text = hit.user
-    }
-
     func updateUI(withHit hit: Hit) {
-        viewModel.currentImageId.accept(hit.id)
         imageHeightConstraint.constant = UIScreen.main.bounds.width * CGFloat(hit.imageHeight/hit.imageWidth)
         mainImageView.downloaded(from: hit.largeImageURL)
         userImageView.maskCircle()
         userImageView.downloaded(from: hit.userImageURL)
         userNameLabel.text = hit.user
+        viewModel.isInDatabase.subscribe(onNext: { isInDatabase in
+            self.likeButton.rx.image(for: .normal).onNext(UIImage(named: isInDatabase ? "likeRed" : "like"))
+        }).disposed(by: disposeBag)
     }
 
-    func setUpLikeButton(_ isInDatabase: Bool) {
-        likeButton.setImage(UIImage(named: isInDatabase ? "likeRed" : "like"), for: .normal)
+    func setUpLikeButton(_ isInDatabase: Bool) -> BehaviorRelay<UIImage> {
+        let buttonImage: BehaviorRelay<UIImage> = BehaviorRelay(value: UIImage())
+        buttonImage.accept(UIImage(named: isInDatabase ? "likeRed" : "like")!)
+        return buttonImage
     }
 }

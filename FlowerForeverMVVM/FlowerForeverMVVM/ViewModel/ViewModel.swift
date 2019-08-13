@@ -14,7 +14,8 @@ import UIKit
 class ViewModel {
     static let shared = ViewModel()
     private let imageApi = ImageApi()
-    var realmDatabase = RealmDatabase()
+    private let realm  = RealmDatabase()
+
     private init() {}
 
     private let disposeBag = DisposeBag()
@@ -27,7 +28,7 @@ class ViewModel {
     var prefetchIndex: BehaviorRelay<IndexPath> = BehaviorRelay(value: IndexPath(item: 0, section: 0))
     var currentIndex: BehaviorRelay<IndexPath> = BehaviorRelay(value: IndexPath(item: 0, section: 0))
     let totalHits: BehaviorRelay<Int> = BehaviorRelay(value: 0)
-    var currentHit: BehaviorRelay<Hit>!
+    var currentHit: BehaviorRelay<Hit> = BehaviorRelay(value: Hit())
 
     func clearMemory() {
         imagesList.removeAll()

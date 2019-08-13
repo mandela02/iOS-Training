@@ -9,6 +9,7 @@
 import UIKit
 import RxSwift
 import RxCocoa
+import Action
 
 class TableViewController: UIViewController {
 
@@ -38,14 +39,22 @@ class TableViewController: UIViewController {
             .bind(to: tableView
                 .rx.items(cellIdentifier: "Cell",
                           cellType: TableViewCell.self)) { _, hit, cell in
-                            cell.viewModel = ViewModelForCell()
-                            cell.updateUI(withHit: hit)
-                            cell.viewModel.isInDatabase.asObservable().subscribe(onNext: { isIndatabase in
-                                cell.setUpLikeButton(isIndatabase)
+                            cell.viewModel = ViewModelForCell(withCurrentHit: BehaviorRelay(value: hit))
+                            cell.viewModel.currentHit.asObservable().subscribe(onNext: { hit in
+                                cell.updateUI(withHit: hit)
                             }).disposed(by: cell.disposeBag)
-                            cell.likeButton.rx.tap.subscribe( onNext: {
-                                cell.viewModel.likeButtonTapped()
-                            }).disposed(by: cell.disposeBag)
+//                            cell.viewModel
+//                                .isInDatabase
+//                                .asObservable()
+//                                .flatMapLatest({ isInDatabase in
+//                                    cell.setUpLikeButton(isInDatabase)
+//                                })
+//                                .bind(to: cell.likeButton.rx.image(for: .normal))
+//                                .disposed(by: cell.disposeBag)
+//                            cell.likeButton.rx.action = CocoaAction {
+//                                cell.viewModel.likeButtonTapped()
+//                                return .empty()
+//                            }
             }.disposed(by: disposeBag)
     }
 
