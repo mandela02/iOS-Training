@@ -34,7 +34,6 @@ class RealmDatabase {
             try realm?.write {
                 realm?.add(storedImage)
                 print("insert")
-                print(storagedImages as Any)
             }
         } catch let error as NSError {
             print(error.localizedDescription)
@@ -50,7 +49,6 @@ class RealmDatabase {
                     try realm?.write {
                         realm?.delete(storagedImage)
                         print("delete")
-                        print(storagedImages as Any)
                     }
                 } catch let error as NSError {
                     print(error.localizedDescription)

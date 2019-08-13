@@ -9,10 +9,10 @@
 import Foundation
 
 class Hit: Codable {
-    let largeImageURL: String
-    let imageWidth: Double
-    let imageHeight: Double
-    let user: String
-    let userImageURL: String
-    let id: Int
+    var largeImageURL: String = ""
+    var imageWidth: Double = 0.0
+    var imageHeight: Double = 0.0
+    var user: String = ""
+    var userImageURL: String = ""
+    var id: Int = 0
 }

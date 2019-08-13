@@ -27,6 +27,7 @@ class ViewModel {
     var prefetchIndex: BehaviorRelay<IndexPath> = BehaviorRelay(value: IndexPath(item: 0, section: 0))
     var currentIndex: BehaviorRelay<IndexPath> = BehaviorRelay(value: IndexPath(item: 0, section: 0))
     let totalHits: BehaviorRelay<Int> = BehaviorRelay(value: 0)
+    var currentHit: BehaviorRelay<Hit>!
 
     func clearMemory() {
         imagesList.removeAll()

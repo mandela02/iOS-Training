@@ -10,8 +10,10 @@ target 'FlowerForeverMVVM' do
     pod 'SwiftLint'
     pod 'RealmSwift'
     pod 'RxSwift', '~> 4.5'
-    pod 'RxCocoa', '~> 4.5'
-  target 'FlowerForeverMVVMTests' do
+    pod 'RxCocoa', '~> 4.5' 
+    pod 'Action'
+      
+target 'FlowerForeverMVVMTests' do
     inherit! :search_paths
     # Pods for testing
   end

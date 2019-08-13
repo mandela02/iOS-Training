@@ -13,7 +13,8 @@ import RxSwift
 class ViewModelForCell {
     let realm = RealmDatabase()
     var favoriteImagesList: BehaviorRelay<[Int]> = BehaviorRelay(value: [])
-    var favoriteImage: BehaviorRelay<Int> = BehaviorRelay(value: 0)
+    var currentImageId: BehaviorRelay<Int> = BehaviorRelay(value: 0)
+    var currentHit: BehaviorRelay<Hit> = BehaviorRelay(value: Hit())
 
     var disposeBag = DisposeBag()
 
@@ -23,29 +24,31 @@ class ViewModelForCell {
 
     func initData() {
         var list: [Int] = []
-        realm.storagedImages?.forEach({ (image) in
+        realm.storagedImages?.forEach({ image in
             list.append(image.imageId)
         })
         favoriteImagesList.accept(list)
-    }
-
-    var isInDatabase: Observable<Bool> {
-        return favoriteImage.asObservable().map({ [weak self] in
-            self?.favoriteImagesList.value.contains($0) ?? false
-        })
+        print(favoriteImagesList.value)
     }
 }
 
 extension ViewModelForCell {
+    var isInDatabase: Observable<Bool> {
+        return currentImageId.asObservable().map({ [weak self] in
+            self?.favoriteImagesList.value.contains($0) ?? false
+        })
+    }
+
     func saveImagetoDatabase() {
-        realm.insertToDatabase(withImageId: favoriteImage.value)
+        realm.insertToDatabase(withImageId: currentImageId.value)
     }
 
     func deleteImageInDatabase() {
-        realm.deleteFromDatabase(withImageId: favoriteImage.value)
+        realm.deleteFromDatabase(withImageId: currentImageId.value)
     }
 
     func likeButtonTapped() {
+        print("tapped")
         isInDatabase.asObservable().subscribe(onNext: { [weak self] isInDatabase in
             isInDatabase ? self?.deleteImageInDatabase() : self?.saveImagetoDatabase()
             self?.initData()

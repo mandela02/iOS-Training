@@ -38,8 +38,14 @@ class TableViewController: UIViewController {
             .bind(to: tableView
                 .rx.items(cellIdentifier: "Cell",
                           cellType: TableViewCell.self)) { _, hit, cell in
-                            cell.hit = hit
-                            cell.updateUI()
+                            cell.viewModel = ViewModelForCell()
+                            cell.updateUI(withHit: hit)
+                            cell.viewModel.isInDatabase.asObservable().subscribe(onNext: { isIndatabase in
+                                cell.setUpLikeButton(isIndatabase)
+                            }).disposed(by: cell.disposeBag)
+                            cell.likeButton.rx.tap.subscribe( onNext: {
+                                cell.viewModel.likeButtonTapped()
+                            }).disposed(by: cell.disposeBag)
             }.disposed(by: disposeBag)
     }
 
